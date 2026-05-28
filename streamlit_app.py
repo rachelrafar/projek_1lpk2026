@@ -357,332 +357,6 @@ Next Generation Chemistry Dashboard
 </div>
 """, unsafe_allow_html=True)
 
-# ================= SIDEBAR =================
-
-with st.sidebar:
-
-    st.markdown("## ⚡ ChemAssist Menu")
-
-    dark_mode = st.toggle("🌙 Dark Mode")
-
-    realtime_notif = st.toggle("🔔 Notification")
-
-    sound_system = st.toggle("🔊 Sound")
-
-    st.markdown("---")
-
-    selected = option_menu(
-
-        "",
-
-        [
-            "Home",
-            "Larutan",
-            "pH",
-            "Informasi",
-            "Analisis Kimia",
-            "Tentang"
-        ],
-
-        icons=[
-            "house-fill",
-            "droplet-fill",
-            "eyedropper",
-            "book-fill",
-            "activity",
-            "info-circle-fill"
-        ],
-
-        menu_icon="stars",
-
-        default_index=0,
-
-        styles={
-
-            "container":{
-                "background-color":"transparent"
-            },
-
-            "icon":{
-                "color":"#2563EB"
-            },
-
-            "nav-link":{
-
-                "font-size":"16px",
-
-                "margin":"8px",
-
-                "border-radius":"16px",
-
-                "background-color":"rgba(255,255,255,0.6)",
-
-                "color":"#0F172A",
-
-                "font-weight":"600",
-
-                "padding":"14px"
-            },
-
-            "nav-link-selected":{
-
-                "background":"linear-gradient(90deg,#38BDF8,#2563EB)",
-
-                "color":"white",
-
-                "font-weight":"bold"
-            }
-        }
-    )
-
-    st.markdown("---")
-
-    if st.button("🚪 Logout"):
-
-        st.session_state.login = False
-
-        st.rerun()
-        
-# ================= DARK MODE =================
-
-if dark_mode:
-
-    st.markdown("""
-    <style>
-
-    .stApp{
-
-        background:linear-gradient(
-        135deg,
-        #020617,
-        #0F172A,
-        #111827
-        ) !important;
-    }
-
-    html, body, [class*="css"]{
-
-        color:white !important;
-    }
-
-    section[data-testid="stSidebar"]{
-
-        background:rgba(15,23,42,0.7) !important;
-    }
-
-    .card{
-
-        background:rgba(15,23,42,0.6) !important;
-
-        border:1px solid rgba(255,255,255,0.08) !important;
-
-        color:white !important;
-    }
-
-    .metric{
-
-        background:rgba(15,23,42,0.6) !important;
-    }
-
-    .metric-number{
-
-        color:#38BDF8 !important;
-    }
-
-    .metric-label{
-
-        color:#E2E8F0 !important;
-    }
-
-    </style>
-    """, unsafe_allow_html=True)
-
-# ================= HOME =================
-
-if selected == "Home":
-
-    c1,c2,c3 = st.columns(3)
-
-    with c1:
-
-        st.markdown("""
-        <div class="metric">
-        <div class="metric-number">54</div>
-        <div class="metric-label">
-        Chemical Data
-        </div>
-        </div>
-        """, unsafe_allow_html=True)
-
-    with c2:
-
-        st.markdown("""
-        <div class="metric">
-        <div class="metric-number">18</div>
-        <div class="metric-label">
-        AI Analysis
-        </div>
-        </div>
-        """, unsafe_allow_html=True)
-
-    with c3:
-
-        st.markdown("""
-        <div class="metric">
-        <div class="metric-number">99%</div>
-        <div class="metric-label">
-        Accuracy
-        </div>
-        </div>
-        """, unsafe_allow_html=True)
-
-    st.markdown("<br>", unsafe_allow_html=True)
-
-    st.subheader("📈 Realtime Monitoring")
-
-    chart_data = pd.DataFrame(
-        np.random.randn(20,3),
-        columns=["pH","Temperature","Pressure"]
-    )
-
-    st.line_chart(chart_data)
-
-# ================= LARUTAN =================
-
-elif selected == "Larutan":
-
-    st.title("💧 Data Larutan")
-
-    df = pd.DataFrame({
-
-        "Larutan":[
-            "HCl",
-            "NaOH",
-            "NH3",
-            "H2SO4"
-        ],
-
-        "Jenis":[
-            "Asam Kuat",
-            "Basa Kuat",
-            "Basa Lemah",
-            "Asam Kuat"
-        ],
-
-        "Status":[
-            "Aktif",
-            "Stabil",
-            "Monitor",
-            "Warning"
-        ]
-    })
-
-    st.dataframe(df,use_container_width=True)
-
-# ================= PH =================
-
-elif selected == "pH":
-
-    st.title("⚗️ Smart pH Detector")
-
-    ph = st.slider(
-        "Pilih pH",
-        0,
-        14,
-        7
-    )
-
-    if ph < 7:
-
-        st.error("🔴 Larutan Bersifat Asam")
-
-    elif ph == 7:
-
-        st.success("🟢 Larutan Netral")
-
-    else:
-
-        st.info("🔵 Larutan Bersifat Basa")
-
-# ================= INFORMASI =================
-
-elif selected == "Informasi":
-
-    st.title("📚 Informasi Kimia")
-
-    st.markdown("""
-    <div class="card">
-
-    <h3>🧪 Kimia Dasar</h3>
-
-    <p>
-    Kimia adalah ilmu yang mempelajari
-    struktur, sifat, komposisi,
-    dan perubahan materi.
-    </p>
-
-    </div>
-    """, unsafe_allow_html=True)
-
-# ================= ANALISIS =================
-
-elif selected == "Analisis Kimia":
-
-    st.title("📊 Analisis Kimia")
-
-    values = np.random.randint(10,100,12)
-
-    fig = px.line(
-        y=values
-    )
-
-    fig.update_layout(
-
-        paper_bgcolor="rgba(0,0,0,0)",
-
-        plot_bgcolor="rgba(255,255,255,0.3)"
-    )
-
-    st.plotly_chart(
-        fig,
-        use_container_width=True
-    )
-
-# ================= TENTANG =================
-
-elif selected == "Tentang":
-
-    st.title("ℹ️ Tentang")
-
-    st.markdown("""
-    <div class="card">
-
-    <h2>🧪 ChemAssist Ultra</h2>
-
-    <p>
-    Dashboard kimia modern berbasis
-    Streamlit dengan UI futuristik.
-    </p>
-
-    </div>
-    """, unsafe_allow_html=True)
-
-# ================= HISTORY =================
-
-elif selected == "History":
-
-    st.title("📜 History")
-
-    if len(st.session_state.history) == 0:
-
-        st.info("Belum ada histori")
-
-    else:
-
-        for item in st.session_state.history:
-
-            st.write("✅", item)
-
 # HEADER / LOGO
 # =========================================================
 st.markdown("""
@@ -884,6 +558,84 @@ if selected != st.session_state.menu:
     st.session_state.menu = selected
 
 menu = st.session_state.menu
+
+st.markdown("---")
+
+    if st.button("🚪 Logout"):
+
+        st.session_state.login = False
+
+        st.rerun()
+
+# ================= DARK MODE =================
+
+if dark_mode:
+
+    st.markdown("""
+    <style>
+
+    .stApp{
+
+        background:linear-gradient(
+        135deg,
+        #020617,
+        #0F172A,
+        #111827
+        ) !important;
+    }
+
+    html, body, [class*="css"]{
+
+        color:white !important;
+    }
+
+    section[data-testid="stSidebar"]{
+
+        background:rgba(15,23,42,0.7) !important;
+    }
+
+    .card{
+
+        background:rgba(15,23,42,0.6) !important;
+
+        border:1px solid rgba(255,255,255,0.08) !important;
+
+        color:white !important;
+    }
+
+    .metric{
+
+        background:rgba(15,23,42,0.6) !important;
+    }
+
+    .metric-number{
+
+        color:#38BDF8 !important;
+    }
+
+    .metric-label{
+
+        color:#E2E8F0 !important;
+    }
+
+    </style>
+    """, unsafe_allow_html=True)
+
+# ================= HISTORY =================
+
+elif selected == "History":
+
+    st.title("📜 History")
+
+    if len(st.session_state.history) == 0:
+
+        st.info("Belum ada histori")
+
+    else:
+
+        for item in st.session_state.history:
+
+            st.write("✅", item)
 
 # ================= HOME =================
 
