@@ -542,7 +542,7 @@ with st.sidebar:
 
         st.session_state.login = False
 
-        st.experimental_rerun()
+        st.rerun()
 
 # ================= DARK MODE =================
 
