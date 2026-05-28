@@ -553,12 +553,6 @@ with st.sidebar:
             },
         }
     )
-
-if selected != st.session_state.menu:
-    st.session_state.menu = selected
-
-menu = st.session_state.menu
-
     st.markdown("---")
 
     if st.button("🚪 Logout"):
@@ -566,6 +560,11 @@ menu = st.session_state.menu
         st.session_state.login = False
 
         st.experimental_rerun()
+
+if selected != st.session_state.menu:
+    st.session_state.menu = selected
+
+menu = st.session_state.menu
 
 # ================= DARK MODE =================
 
