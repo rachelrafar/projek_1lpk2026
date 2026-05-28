@@ -7,6 +7,7 @@ import numpy as np
 import plotly.express as px
 import random
 import time
+import math
 
 # ================= PAGE CONFIG =================
 
@@ -563,59 +564,59 @@ with st.sidebar:
 
 # ================= DARK MODE =================
 
-dark_mode = st.toggle("🌙 Dark Mode")
+    dark_mode = st.toggle("🌙 Dark Mode")
 
     if dark_mode:
 
-    st.markdown("""
+        st.markdown("""
         <style>
 
-    .stApp{
+        .stApp{
 
-        background:linear-gradient(
-        135deg,
-        #020617,
-        #0F172A,
-        #111827
-        ) !important;
-    }
+            background:linear-gradient(
+            135deg,
+            #020617,
+            #0F172A,
+            #111827
+            ) !important;
+        }
 
-    html, body, [class*="css"]{
+        html, body, [class*="css"]{
 
-        color:white !important;
-    }
+            color:white !important;
+        }
 
-    section[data-testid="stSidebar"]{
+        section[data-testid="stSidebar"]{
 
-        background:rgba(15,23,42,0.7) !important;
-    }
+            background:rgba(15,23,42,0.7) !important;
+        }
 
-    .card{
+        .card{
 
-        background:rgba(15,23,42,0.6) !important;
+            background:rgba(15,23,42,0.6) !important;
 
-        border:1px solid rgba(255,255,255,0.08) !important;
+            border:1px solid rgba(255,255,255,0.08) !important;
 
-        color:white !important;
-    }
+            color:white !important;
+        }
 
-    .metric{
+        .metric{
 
-        background:rgba(15,23,42,0.6) !important;
-    }
+            background:rgba(15,23,42,0.6) !important;
+        }
 
-    .metric-number{
+        .metric-number{
 
-        color:#38BDF8 !important;
-    }
+            color:#38BDF8 !important;
+        }
 
-    .metric-label{
+        .metric-label{
 
-        color:#E2E8F0 !important;
-    }
+            color:#E2E8F0 !important;
+        }
 
-    </style>
-    """, unsafe_allow_html=True)
+        </style>
+        """, unsafe_allow_html=True)
 
 # ================= HISTORY =================
 
