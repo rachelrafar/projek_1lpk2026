@@ -5,32 +5,53 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
+from streamlit_option_menu import option_menu
 import random
 import time
-import math
-from datetime import datetime
-from streamlit_option_menu import option_menu
 
-# ================= PAGE CONFIG =================
+# ================= PAGE =================
 
 st.set_page_config(
-    page_title="ChemAssist X",
+    page_title="ChemAssist Blue",
     page_icon="🧪",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# ================= FUTURISTIC CSS =================
+# ================= STYLE =================
 
 st.markdown("""
 <style>
 
-/* ===== MAIN BACKGROUND ===== */
+/* ===== MAIN ===== */
 
 .stApp{
-    background:
-    radial-gradient(circle at top left,#0f172a,#020617 45%,#000000 100%);
-    overflow:hidden;
+    background:linear-gradient(
+    135deg,
+    #F0F9FF,
+    #E0F2FE,
+    #BAE6FD,
+    #7DD3FC
+    );
+
+    background-size:400% 400%;
+
+    animation:bg 15s ease infinite;
+}
+
+@keyframes bg{
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
 }
 
 /* ===== HIDE ===== */
@@ -39,51 +60,54 @@ button[kind="header"]{
     display:none;
 }
 
-/* ===== SCROLLBAR ===== */
-
-::-webkit-scrollbar{
-    width:10px;
-}
-
-::-webkit-scrollbar-thumb{
-    background:#38bdf8;
-    border-radius:20px;
-}
-
 /* ===== SIDEBAR ===== */
 
 section[data-testid="stSidebar"]{
 
-    background:rgba(15,23,42,0.75);
+    background:rgba(255,255,255,0.35);
 
     backdrop-filter:blur(18px);
 
-    border-right:1px solid rgba(255,255,255,0.1);
+    border-right:1px solid rgba(255,255,255,0.2);
 }
 
 /* ===== TEXT ===== */
 
 html, body, [class*="css"]{
-    color:white;
+    color:#0F172A;
 }
 
 /* ===== TITLE ===== */
 
 .main-title{
 
-    font-size:70px;
+    font-size:65px;
 
     font-weight:900;
 
     text-align:center;
 
-    background:linear-gradient(90deg,#38bdf8,#818cf8,#ec4899);
+    color:#2563EB;
 
-    -webkit-background-clip:text;
+    margin-top:-20px;
 
-    -webkit-text-fill-color:transparent;
+    text-shadow:
+    0 0 12px rgba(255,255,255,0.9);
 
     animation:glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow{
+
+    from{
+        text-shadow:
+        0 0 8px rgba(255,255,255,0.7);
+    }
+
+    to{
+        text-shadow:
+        0 0 20px rgba(255,255,255,1);
+    }
 }
 
 /* ===== SUBTITLE ===== */
@@ -92,23 +116,28 @@ html, body, [class*="css"]{
 
     text-align:center;
 
-    font-size:20px;
+    color:#1E40AF;
 
-    color:#cbd5e1;
+    font-size:18px;
 
-    margin-bottom:40px;
+    margin-bottom:35px;
 }
 
-/* ===== GLOW ===== */
+/* ===== LOGO ===== */
 
-@keyframes glow{
+.logo{
 
-    from{
-        filter:drop-shadow(0 0 10px #38bdf8);
-    }
+    text-align:center;
 
-    to{
-        filter:drop-shadow(0 0 30px #818cf8);
+    font-size:90px;
+
+    animation:spin 8s linear infinite;
+}
+
+@keyframes spin{
+
+    100%{
+        transform:rotate(360deg);
     }
 }
 
@@ -116,66 +145,67 @@ html, body, [class*="css"]{
 
 .card{
 
-    background:rgba(255,255,255,0.05);
+    background:rgba(255,255,255,0.55);
 
-    border:1px solid rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.5);
 
-    backdrop-filter:blur(20px);
+    backdrop-filter:blur(18px);
 
     border-radius:28px;
 
-    padding:25px;
+    padding:28px;
 
-    transition:0.4s;
+    margin-bottom:22px;
 
-    margin-bottom:20px;
+    transition:0.3s;
 
     box-shadow:
-    0 0 30px rgba(56,189,248,0.08);
+    0 8px 24px rgba(37,99,235,0.15);
 }
 
 .card:hover{
 
-    transform:translateY(-8px) scale(1.02);
+    transform:translateY(-5px);
 
     box-shadow:
-    0 0 50px rgba(129,140,248,0.35);
+    0 12px 28px rgba(37,99,235,0.25);
 }
 
 /* ===== METRIC ===== */
 
-.metric-card{
+.metric{
 
     background:linear-gradient(
     135deg,
-    rgba(56,189,248,0.15),
-    rgba(129,140,248,0.15));
+    rgba(255,255,255,0.65),
+    rgba(255,255,255,0.4));
 
     padding:30px;
 
-    border-radius:24px;
+    border-radius:25px;
 
     text-align:center;
 
-    border:1px solid rgba(255,255,255,0.1);
+    box-shadow:
+    0 8px 22px rgba(37,99,235,0.12);
 
-    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,0.45);
 }
 
 .metric-number{
 
-    font-size:50px;
+    font-size:48px;
 
     font-weight:900;
 
-    color:#38bdf8;
+    color:#2563EB;
 }
 
 .metric-label{
 
-    color:#cbd5e1;
+    color:#334155;
 
-    font-size:18px;
+    font-size:17px;
 }
 
 /* ===== BUTTON ===== */
@@ -186,16 +216,17 @@ html, body, [class*="css"]{
 
     background:linear-gradient(
     90deg,
-    #06b6d4,
-    #6366f1);
+    #38BDF8,
+    #2563EB
+    );
 
     color:white;
 
     border:none;
 
-    padding:14px;
-
     border-radius:16px;
+
+    padding:13px;
 
     font-size:17px;
 
@@ -204,7 +235,7 @@ html, body, [class*="css"]{
     transition:0.3s;
 
     box-shadow:
-    0 0 20px rgba(99,102,241,0.35);
+    0 6px 20px rgba(37,99,235,0.25);
 }
 
 .stButton > button:hover{
@@ -212,7 +243,7 @@ html, body, [class*="css"]{
     transform:scale(1.03);
 
     box-shadow:
-    0 0 35px rgba(99,102,241,0.7);
+    0 8px 24px rgba(37,99,235,0.4);
 }
 
 /* ===== PARTICLES ===== */
@@ -221,17 +252,15 @@ html, body, [class*="css"]{
 
     position:fixed;
 
-    width:8px;
+    width:12px;
 
-    height:8px;
+    height:12px;
 
     border-radius:50%;
 
-    background:#38bdf8;
+    background:rgba(255,255,255,0.5);
 
-    animation:float 14s linear infinite;
-
-    opacity:0.5;
+    animation:float 14s infinite linear;
 }
 
 .particle:nth-child(1){left:10%;}
@@ -251,23 +280,6 @@ html, body, [class*="css"]{
     }
 }
 
-/* ===== LOGO ===== */
-
-.logo{
-
-    text-align:center;
-
-    font-size:90px;
-
-    animation:spin 8s linear infinite;
-}
-
-@keyframes spin{
-    100%{
-        transform:rotate(360deg);
-    }
-}
-
 </style>
 
 <div class="particle"></div>
@@ -284,11 +296,11 @@ st.markdown("""
 <div class="logo">🧪</div>
 
 <div class="main-title">
-ChemAssist X
+ChemAssist Blue
 </div>
 
 <div class="subtitle">
-Next Generation Futuristic Chemistry Dashboard
+Modern Chemistry Laboratory Dashboard
 </div>
 """, unsafe_allow_html=True)
 
@@ -298,27 +310,27 @@ with st.sidebar:
 
     selected = option_menu(
 
-        "⚡ Navigation",
+        "⚡ Menu",
 
         [
             "Dashboard",
             "Analytics",
-            "AI Chemistry",
+            "Chemistry AI",
             "Laboratory",
             "Database",
             "Settings"
         ],
 
         icons=[
-            "grid-fill",
-            "graph-up-arrow",
+            "house-fill",
+            "graph-up",
             "robot",
             "beaker-fill",
             "database-fill",
             "gear-fill"
         ],
 
-        menu_icon="cpu-fill",
+        menu_icon="stars",
 
         default_index=0,
 
@@ -329,25 +341,29 @@ with st.sidebar:
             },
 
             "icon":{
-                "color":"#38bdf8"
+                "color":"#2563EB"
             },
 
             "nav-link":{
 
-                "font-size":"17px",
+                "font-size":"16px",
 
                 "margin":"8px",
 
                 "border-radius":"14px",
 
-                "background-color":"rgba(255,255,255,0.05)",
+                "background-color":"rgba(255,255,255,0.6)",
 
-                "color":"white"
+                "color":"#0F172A",
+
+                "font-weight":"600"
             },
 
             "nav-link-selected":{
 
-                "background":"linear-gradient(90deg,#06b6d4,#6366f1)",
+                "background":"linear-gradient(90deg,#38BDF8,#2563EB)",
+
+                "color":"white",
 
                 "font-weight":"bold"
             }
@@ -358,37 +374,37 @@ with st.sidebar:
 
 if selected == "Dashboard":
 
-    col1,col2,col3,col4 = st.columns(4)
+    c1,c2,c3,c4 = st.columns(4)
 
-    with col1:
+    with c1:
         st.markdown("""
-        <div class="metric-card">
+        <div class="metric">
         <div class="metric-number">54</div>
-        <div class="metric-label">Chemical Database</div>
+        <div class="metric-label">Chemical Data</div>
         </div>
         """, unsafe_allow_html=True)
 
-    with col2:
+    with c2:
         st.markdown("""
-        <div class="metric-card">
+        <div class="metric">
         <div class="metric-number">18</div>
         <div class="metric-label">AI Analysis</div>
         </div>
         """, unsafe_allow_html=True)
 
-    with col3:
+    with c3:
         st.markdown("""
-        <div class="metric-card">
+        <div class="metric">
         <div class="metric-number">99%</div>
-        <div class="metric-label">System Accuracy</div>
+        <div class="metric-label">Accuracy</div>
         </div>
         """, unsafe_allow_html=True)
 
-    with col4:
+    with c4:
         st.markdown("""
-        <div class="metric-card">
+        <div class="metric">
         <div class="metric-number">24/7</div>
-        <div class="metric-label">Realtime Monitoring</div>
+        <div class="metric-label">Monitoring</div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -405,26 +421,35 @@ if selected == "Dashboard":
         data,
         x="Day",
         y="pH",
-        markers=True,
-        title="Realtime pH Monitoring"
+        markers=True
     )
 
     fig.update_layout(
+
         paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)",
-        font_color="white"
+
+        plot_bgcolor="rgba(255,255,255,0.3)",
+
+        font_color="#0F172A",
+
+        title="Realtime pH Monitoring"
     )
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(
+        fig,
+        use_container_width=True
+    )
 
-    # ===== SYSTEM STATUS =====
+    # ===== STATUS =====
 
     st.markdown("""
     <div class="card">
 
-    <h2>⚡ Quantum System Status</h2>
+    <h2>⚡ System Status</h2>
 
-    <p>All chemistry modules running normally.</p>
+    <p>
+    All chemistry systems are running normally and stable.
+    </p>
 
     </div>
     """, unsafe_allow_html=True)
@@ -435,7 +460,7 @@ if selected == "Dashboard":
         time.sleep(0.01)
         progress.progress(i+1)
 
-    st.success("🚀 Futuristic System Ready")
+    st.success("🚀 System Ready")
 
 # ================= ANALYTICS =================
 
@@ -443,7 +468,7 @@ elif selected == "Analytics":
 
     st.title("📊 Chemical Analytics")
 
-    values = np.random.randint(1,100,15)
+    values = np.random.randint(10,100,12)
 
     fig = go.Figure()
 
@@ -456,9 +481,9 @@ elif selected == "Analytics":
 
         paper_bgcolor="rgba(0,0,0,0)",
 
-        plot_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(255,255,255,0.3)",
 
-        font_color="white"
+        font_color="#0F172A"
     )
 
     st.plotly_chart(fig, use_container_width=True)
@@ -469,7 +494,7 @@ elif selected == "Analytics":
     <h3>🧠 AI Prediction</h3>
 
     <p>
-    Predicted reaction stability: HIGH
+    Chemical stability detected at high level.
     </p>
 
     </div>
@@ -477,31 +502,31 @@ elif selected == "Analytics":
 
 # ================= AI =================
 
-elif selected == "AI Chemistry":
+elif selected == "Chemistry AI":
 
-    st.title("🤖 AI Chemistry Assistant")
+    st.title("🤖 Chemistry AI Assistant")
 
     question = st.text_input(
-        "Ask AI About Chemistry"
+        "Ask chemistry question"
     )
 
     if st.button("Analyze"):
 
-        responses = [
+        answers = [
 
-            "AI mendeteksi sifat asam kuat.",
+            "Strong acid detected.",
 
-            "Kemungkinan reaksi eksoterm tinggi.",
+            "Reaction predicted exothermic.",
 
-            "Larutan memiliki stabilitas sedang.",
+            "Compound has high oxidation potential.",
 
-            "Analisis menunjukkan potensi oksidasi."
+            "Solution stability is moderate."
         ]
 
         with st.spinner("AI Processing..."):
             time.sleep(2)
 
-        st.success(random.choice(responses))
+        st.success(random.choice(answers))
 
 # ================= LAB =================
 
@@ -517,7 +542,7 @@ elif selected == "Laboratory":
     )
 
     ph = st.slider(
-        "pH Level",
+        "pH",
         0,
         14,
         7
@@ -526,11 +551,11 @@ elif selected == "Laboratory":
     st.markdown(f"""
     <div class="card">
 
-    <h3>⚗️ Lab Parameters</h3>
+    <h3>⚗️ Laboratory Parameters</h3>
 
     🌡️ Temperature : {temp}°C <br><br>
 
-    🧪 pH : {ph}
+    🧪 pH Level : {ph}
 
     </div>
     """, unsafe_allow_html=True)
@@ -541,32 +566,32 @@ elif selected == "Database":
 
     st.title("📚 Chemical Database")
 
-    chemicals = pd.DataFrame({
+    df = pd.DataFrame({
 
         "Chemical":[
             "HCl",
             "NaOH",
-            "H2SO4",
-            "NH3"
+            "NH3",
+            "H2SO4"
         ],
 
         "Type":[
             "Strong Acid",
             "Strong Base",
-            "Strong Acid",
-            "Weak Base"
+            "Weak Base",
+            "Strong Acid"
         ],
 
         "Status":[
+            "Stable",
             "Active",
-            "Active",
-            "Warning",
-            "Stable"
+            "Monitor",
+            "Warning"
         ]
     })
 
     st.dataframe(
-        chemicals,
+        df,
         use_container_width=True
     )
 
@@ -574,21 +599,22 @@ elif selected == "Database":
 
 elif selected == "Settings":
 
-    st.title("⚙️ Futuristic Settings")
+    st.title("⚙️ Settings")
 
-    dark = st.toggle("Enable Quantum Dark Mode")
+    dark = st.toggle("Dark Mode")
 
-    sound = st.toggle("Enable System Sound")
+    notif = st.toggle("Realtime Notification")
 
-    notif = st.toggle("Realtime Notifications")
+    sound = st.toggle("System Sound")
 
     st.markdown("""
     <div class="card">
 
-    <h3>🚀 System Configuration Saved</h3>
+    <h3>✅ Settings Saved</h3>
 
     </div>
     """, unsafe_allow_html=True)
+    
 # HEADER / LOGO
 # =========================================================
 st.markdown("""
