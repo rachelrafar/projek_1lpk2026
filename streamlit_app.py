@@ -344,20 +344,6 @@ transform:translateY(-120vh);
 
 """, unsafe_allow_html=True)
 
-# ================= HEADER =================
-
-st.markdown("""
-<div class="logo">🧪</div>
-
-<div class="main-title">
-ChemAssist Ultra
-</div>
-
-<div class="subtitle">
-Next Generation Chemistry Dashboard
-</div>
-""", unsafe_allow_html=True)
-
 # HEADER / LOGO
 # =========================================================
 st.markdown("""
