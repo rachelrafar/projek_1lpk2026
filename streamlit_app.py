@@ -568,7 +568,7 @@ menu = st.session_state.menu
 
 # ================= DARK MODE =================
 
-if dark_mode:
+    if dark_mode:
 
     st.markdown("""
     <style>
