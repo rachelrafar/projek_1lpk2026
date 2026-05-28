@@ -617,9 +617,9 @@ with st.sidebar:
 
 # ================= HISTORY =================
 
-elif selected == "History":
+    elif selected == "History":
 
-    st.title("📜 History")
+        st.title("📜 History")
 
     if len(st.session_state.history) == 0:
 
