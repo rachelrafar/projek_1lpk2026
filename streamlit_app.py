@@ -565,7 +565,7 @@ menu = st.session_state.menu
 
         st.session_state.login = False
 
-        st.rerun()
+        st.experimental_rerun()
 
 # ================= DARK MODE =================
 
