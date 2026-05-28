@@ -601,11 +601,90 @@ elif selected == "Settings":
 
     st.title("⚙️ Settings")
 
-    dark = st.toggle("Dark Mode")
+    dark = st.toggle("🌙 Dark Mode")
 
-    notif = st.toggle("Realtime Notification")
+    notif = st.toggle("🔔 Realtime Notification")
 
-    sound = st.toggle("System Sound")
+    sound = st.toggle("🔊 System Sound")
+
+    # ===== DARK MODE =====
+
+    if dark:
+
+        st.markdown("""
+        <style>
+
+        .stApp{
+
+            background:linear-gradient(
+            135deg,
+            #020617,
+            #0F172A,
+            #111827
+            ) !important;
+        }
+
+        html, body, [class*="css"]{
+
+            color:white !important;
+        }
+
+        section[data-testid="stSidebar"]{
+
+            background:rgba(15,23,42,0.7) !important;
+        }
+
+        .card{
+
+            background:rgba(15,23,42,0.6) !important;
+
+            border:1px solid rgba(255,255,255,0.08) !important;
+
+            color:white !important;
+        }
+
+        .metric{
+
+            background:rgba(15,23,42,0.6) !important;
+
+            color:white !important;
+        }
+
+        .metric-number{
+
+            color:#38BDF8 !important;
+        }
+
+        .metric-label{
+
+            color:#E2E8F0 !important;
+        }
+
+        </style>
+        """, unsafe_allow_html=True)
+
+        st.success("🌙 Dark Mode Activated")
+
+    else:
+
+        st.markdown("""
+        <style>
+
+        .stApp{
+
+            background:linear-gradient(
+            135deg,
+            #F0F9FF,
+            #E0F2FE,
+            #BAE6FD,
+            #7DD3FC
+            ) !important;
+        }
+
+        </style>
+        """, unsafe_allow_html=True)
+
+        st.success("☀️ Light Mode Activated")
 
     st.markdown("""
     <div class="card">
