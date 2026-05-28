@@ -561,11 +561,6 @@ with st.sidebar:
 
         st.experimental_rerun()
 
-if selected != st.session_state.menu:
-    st.session_state.menu = selected
-
-menu = st.session_state.menu
-
 # ================= DARK MODE =================
 
     if dark_mode:
@@ -635,6 +630,12 @@ elif selected == "History":
         for item in st.session_state.history:
 
             st.write("✅", item)
+
+
+if selected != st.session_state.menu:
+    st.session_state.menu = selected
+
+menu = st.session_state.menu
 
 # ================= HOME =================
 
