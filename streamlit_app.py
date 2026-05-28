@@ -1,22 +1,23 @@
 # ================= IMPORT =================
 
 import streamlit as st
+from streamlit_option_menu import option_menu
 import pandas as pd
 import numpy as np
 import plotly.express as px
-import plotly.graph_objects as go
-from streamlit_option_menu import option_menu
 import random
 import time
-import math
-from datetime import datetime
 
 # ================= PAGE CONFIG =================
 
 st.set_page_config(
+
     page_title="ChemAssist Ultra",
+
     page_icon="🧪",
+
     layout="wide",
+
     initial_sidebar_state="expanded"
 )
 
@@ -36,6 +37,7 @@ if not st.session_state.login:
     <style>
 
     .stApp{
+
         background:linear-gradient(
         135deg,
         #F0F9FF,
@@ -45,27 +47,68 @@ if not st.session_state.login:
         );
     }
 
+    .login-box{
+
+        background:rgba(255,255,255,0.4);
+
+        padding:40px;
+
+        border-radius:30px;
+
+        backdrop-filter:blur(20px);
+
+        box-shadow:
+        0 10px 30px rgba(37,99,235,0.2);
+    }
+
     </style>
     """, unsafe_allow_html=True)
 
-    st.title("🔐 ChemAssist Login")
+    c1,c2,c3 = st.columns([1,1.2,1])
 
-    user = st.text_input("Username")
+    with c2:
 
-    pw = st.text_input(
-        "Password",
-        type="password"
-    )
+        st.markdown("""
+        <div class="login-box">
+        """, unsafe_allow_html=True)
 
-    if st.button("🚀 Login"):
+        st.markdown("""
+        <h1 style='text-align:center;color:#2563EB;'>
+        🧪 ChemAssist
+        </h1>
+        """, unsafe_allow_html=True)
 
-        if user == "admin" and pw == "123":
+        user = st.text_input("Username")
 
-            st.session_state.login = True
-            st.rerun()
+        pw = st.text_input(
+            "Password",
+            type="password"
+        )
 
-        else:
-            st.error("Username atau password salah")
+        accounts = {
+
+            "admin":"123",
+
+            "rachel":"kimia"
+        }
+
+        if st.button("🚀 Login"):
+
+            if user in accounts and pw == accounts[user]:
+
+                st.session_state.login = True
+
+                st.success("Login berhasil")
+
+                time.sleep(1)
+
+                st.rerun()
+
+            else:
+
+                st.error("Username atau password salah")
+
+        st.markdown("</div>", unsafe_allow_html=True)
 
     st.stop()
 
@@ -73,6 +116,8 @@ if not st.session_state.login:
 
 st.markdown("""
 <style>
+
+/* ===== BACKGROUND ===== */
 
 .stApp{
 
@@ -102,164 +147,173 @@ background-position:100% 50%;
 100%{
 background-position:0% 50%;
 }
-
 }
+
+/* ===== HIDE ===== */
 
 button[kind="header"]{
     display:none;
 }
 
+/* ===== SIDEBAR ===== */
+
 section[data-testid="stSidebar"]{
 
-background:rgba(255,255,255,0.35);
+    background:rgba(255,255,255,0.35);
 
-backdrop-filter:blur(18px);
+    backdrop-filter:blur(18px);
 
-border-right:1px solid rgba(255,255,255,0.2);
+    border-right:1px solid rgba(255,255,255,0.2);
 }
 
+/* ===== TEXT ===== */
+
 html, body, [class*="css"]{
+
     color:#0F172A;
 }
 
+/* ===== TITLE ===== */
+
 .main-title{
 
-font-size:65px;
+    font-size:65px;
 
-font-weight:900;
+    font-weight:900;
 
-text-align:center;
+    text-align:center;
 
-color:#2563EB;
+    color:#2563EB;
 
-text-shadow:0 0 12px rgba(255,255,255,0.9);
+    margin-top:-20px;
 }
+
+/* ===== SUBTITLE ===== */
 
 .subtitle{
 
-text-align:center;
+    text-align:center;
 
-color:#1E40AF;
+    color:#1E40AF;
 
-font-size:18px;
+    font-size:18px;
 
-margin-bottom:35px;
+    margin-bottom:35px;
 }
+
+/* ===== LOGO ===== */
 
 .logo{
 
-text-align:center;
+    text-align:center;
 
-font-size:90px;
+    font-size:90px;
 
-animation:spin 8s linear infinite;
+    animation:spin 8s linear infinite;
 }
 
 @keyframes spin{
+
 100%{
 transform:rotate(360deg);
 }
 }
 
+/* ===== CARD ===== */
+
 .card{
 
-background:rgba(255,255,255,0.55);
+    background:rgba(255,255,255,0.55);
 
-border:1px solid rgba(255,255,255,0.5);
+    border:1px solid rgba(255,255,255,0.5);
 
-backdrop-filter:blur(18px);
+    backdrop-filter:blur(18px);
 
-border-radius:28px;
+    border-radius:28px;
 
-padding:28px;
+    padding:28px;
 
-margin-bottom:22px;
+    margin-bottom:22px;
 
-transition:0.3s;
-
-box-shadow:0 8px 24px rgba(37,99,235,0.15);
+    box-shadow:
+    0 8px 24px rgba(37,99,235,0.15);
 }
 
-.card:hover{
-
-transform:translateY(-5px);
-
-box-shadow:0 12px 28px rgba(37,99,235,0.25);
-}
+/* ===== METRIC ===== */
 
 .metric{
 
-background:linear-gradient(
-135deg,
-rgba(255,255,255,0.65),
-rgba(255,255,255,0.4));
+    background:linear-gradient(
+    135deg,
+    rgba(255,255,255,0.65),
+    rgba(255,255,255,0.4));
 
-padding:30px;
+    padding:30px;
 
-border-radius:25px;
+    border-radius:25px;
 
-text-align:center;
+    text-align:center;
 
-box-shadow:0 8px 22px rgba(37,99,235,0.12);
+    box-shadow:
+    0 8px 22px rgba(37,99,235,0.12);
 }
 
 .metric-number{
 
-font-size:48px;
+    font-size:48px;
 
-font-weight:900;
+    font-weight:900;
 
-color:#2563EB;
+    color:#2563EB;
 }
 
 .metric-label{
 
-color:#334155;
+    color:#334155;
 
-font-size:17px;
+    font-size:17px;
 }
+
+/* ===== BUTTON ===== */
 
 .stButton > button{
 
-width:100%;
+    width:100%;
 
-background:linear-gradient(
-90deg,
-#38BDF8,
-#2563EB
-);
+    background:linear-gradient(
+    90deg,
+    #38BDF8,
+    #2563EB
+    );
 
-color:white;
+    color:white;
 
-border:none;
+    border:none;
 
-border-radius:16px;
+    border-radius:16px;
 
-padding:13px;
+    padding:13px;
 
-font-size:17px;
+    font-size:17px;
 
-font-weight:bold;
+    font-weight:bold;
 }
 
-.stButton > button:hover{
-
-transform:scale(1.03);
-}
+/* ===== PARTICLES ===== */
 
 .particle{
 
-position:fixed;
+    position:fixed;
 
-width:12px;
+    width:12px;
 
-height:12px;
+    height:12px;
 
-border-radius:50%;
+    border-radius:50%;
 
-background:rgba(255,255,255,0.5);
+    background:rgba(255,255,255,0.5);
 
-animation:float 14s infinite linear;
+    animation:float 14s infinite linear;
 }
 
 .particle:nth-child(1){left:10%;}
@@ -277,7 +331,6 @@ transform:translateY(100vh);
 100%{
 transform:translateY(-120vh);
 }
-
 }
 
 </style>
@@ -308,178 +361,229 @@ Next Generation Chemistry Dashboard
 
 with st.sidebar:
 
+    st.markdown("## ⚡ ChemAssist Menu")
+
+    dark_mode = st.toggle("🌙 Dark Mode")
+
+    realtime_notif = st.toggle("🔔 Notification")
+
+    sound_system = st.toggle("🔊 Sound")
+
+    st.markdown("---")
+
     selected = option_menu(
 
-        "⚡ Menu",
+        "",
 
         [
-            "Dashboard",
-            "Analytics",
-            "Chemistry AI",
-            "Smart pH",
-            "Stoikiometri",
-            "Titrasi",
-            "Laboratory",
-            "Database",
-            "History",
-            "Settings"
+            "Home",
+            "Larutan",
+            "pH",
+            "Informasi",
+            "Analisis Kimia",
+            "Tentang",
+            "History"
         ],
 
         icons=[
             "house-fill",
-            "graph-up",
-            "robot",
             "droplet-fill",
-            "calculator-fill",
-            "beaker-fill",
+            "eyedropper",
+            "book-fill",
             "activity",
-            "database-fill",
-            "clock-history",
-            "gear-fill"
+            "info-circle-fill",
+            "clock-history"
         ],
 
         menu_icon="stars",
 
-        default_index=0
+        default_index=0,
+
+        styles={
+
+            "container":{
+                "background-color":"transparent"
+            },
+
+            "icon":{
+                "color":"#2563EB"
+            },
+
+            "nav-link":{
+
+                "font-size":"16px",
+
+                "margin":"8px",
+
+                "border-radius":"16px",
+
+                "background-color":"rgba(255,255,255,0.6)",
+
+                "color":"#0F172A",
+
+                "font-weight":"600",
+
+                "padding":"14px"
+            },
+
+            "nav-link-selected":{
+
+                "background":"linear-gradient(90deg,#38BDF8,#2563EB)",
+
+                "color":"white",
+
+                "font-weight":"bold"
+            }
+        }
     )
 
-# ================= DASHBOARD =================
+    st.markdown("---")
 
-if selected == "Dashboard":
+    if st.button("🚪 Logout"):
 
-    c1,c2,c3,c4 = st.columns(4)
+        st.session_state.login = False
+
+        st.rerun()
+
+# ================= DARK MODE =================
+
+if dark_mode:
+
+    st.markdown("""
+    <style>
+
+    .stApp{
+
+        background:linear-gradient(
+        135deg,
+        #020617,
+        #0F172A,
+        #111827
+        ) !important;
+    }
+
+    html, body, [class*="css"]{
+
+        color:white !important;
+    }
+
+    section[data-testid="stSidebar"]{
+
+        background:rgba(15,23,42,0.7) !important;
+    }
+
+    .card{
+
+        background:rgba(15,23,42,0.6) !important;
+
+        border:1px solid rgba(255,255,255,0.08) !important;
+
+        color:white !important;
+    }
+
+    .metric{
+
+        background:rgba(15,23,42,0.6) !important;
+    }
+
+    .metric-number{
+
+        color:#38BDF8 !important;
+    }
+
+    .metric-label{
+
+        color:#E2E8F0 !important;
+    }
+
+    </style>
+    """, unsafe_allow_html=True)
+
+# ================= HOME =================
+
+if selected == "Home":
+
+    c1,c2,c3 = st.columns(3)
 
     with c1:
+
         st.markdown("""
         <div class="metric">
         <div class="metric-number">54</div>
-        <div class="metric-label">Chemical Data</div>
+        <div class="metric-label">
+        Chemical Data
+        </div>
         </div>
         """, unsafe_allow_html=True)
 
     with c2:
+
         st.markdown("""
         <div class="metric">
         <div class="metric-number">18</div>
-        <div class="metric-label">AI Analysis</div>
+        <div class="metric-label">
+        AI Analysis
+        </div>
         </div>
         """, unsafe_allow_html=True)
 
     with c3:
+
         st.markdown("""
         <div class="metric">
         <div class="metric-number">99%</div>
-        <div class="metric-label">Accuracy</div>
+        <div class="metric-label">
+        Accuracy
         </div>
-        """, unsafe_allow_html=True)
-
-    with c4:
-        st.markdown("""
-        <div class="metric">
-        <div class="metric-number">24/7</div>
-        <div class="metric-label">Monitoring</div>
         </div>
         """, unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    st.subheader("📈 Live Chemical Monitoring")
+    st.subheader("📈 Realtime Monitoring")
 
     chart_data = pd.DataFrame(
-        np.random.randn(20, 3),
-        columns=['pH', 'Temperature', 'Pressure']
+        np.random.randn(20,3),
+        columns=["pH","Temperature","Pressure"]
     )
 
     st.line_chart(chart_data)
 
-    notif = random.choice([
+# ================= LARUTAN =================
 
-    "⚗️ Reaksi berlangsung normal",
+elif selected == "Larutan":
 
-    "🧪 Suhu meningkat",
+    st.title("💧 Data Larutan")
 
-    "📈 pH stabil",
+    df = pd.DataFrame({
 
-    "🤖 AI mendeteksi perubahan"
+        "Larutan":[
+            "HCl",
+            "NaOH",
+            "NH3",
+            "H2SO4"
+        ],
 
-    ])
+        "Jenis":[
+            "Asam Kuat",
+            "Basa Kuat",
+            "Basa Lemah",
+            "Asam Kuat"
+        ],
 
-    st.info(notif)
+        "Status":[
+            "Aktif",
+            "Stabil",
+            "Monitor",
+            "Warning"
+        ]
+    })
 
-    st.subheader("⚡ System Performance")
+    st.dataframe(df,use_container_width=True)
 
-    cpu = random.randint(70,99)
+# ================= PH =================
 
-    st.progress(cpu)
-
-    st.metric(
-        "System Accuracy",
-        f"{cpu}%"
-    )
-
-# ================= ANALYTICS =================
-
-elif selected == "Analytics":
-
-    st.title("📊 Chemical Analytics")
-
-    values = np.random.randint(10,100,12)
-
-    fig = go.Figure()
-
-    fig.add_trace(go.Scatter(
-        y=values,
-        mode='lines+markers'
-    ))
-
-    fig.update_layout(
-
-        paper_bgcolor="rgba(0,0,0,0)",
-
-        plot_bgcolor="rgba(255,255,255,0.3)",
-
-        font_color="#0F172A"
-    )
-
-    st.plotly_chart(fig, use_container_width=True)
-
-# ================= AI =================
-
-elif selected == "Chemistry AI":
-
-    st.title("🤖 Chemistry AI Assistant")
-
-    question = st.text_input(
-        "🔍 Pertanyaan"
-    )
-
-    if st.button("🚀 Analyze"):
-
-        with st.spinner("AI Processing..."):
-            time.sleep(2)
-
-        q = question.lower()
-
-        if "asam" in q:
-
-            st.success("""
-🧪 Asam menghasilkan ion H+ dalam air.
-Semakin kecil pH maka semakin asam.
-""")
-
-        elif "basa" in q:
-
-            st.info("""
-⚗️ Basa menghasilkan ion OH- dalam air.
-pH basa lebih besar dari 7.
-""")
-
-        else:
-            st.write("🧠 AI belum menemukan jawaban spesifik.")
-
-# ================= SMART PH =================
-
-elif selected == "Smart pH":
+elif selected == "pH":
 
     st.title("⚗️ Smart pH Detector")
 
@@ -502,111 +606,68 @@ elif selected == "Smart pH":
 
         st.info("🔵 Larutan Bersifat Basa")
 
-# ================= STOIKIOMETRI =================
+# ================= INFORMASI =================
 
-elif selected == "Stoikiometri":
+elif selected == "Informasi":
 
-    st.title("🧮 Kalkulator Stoikiometri")
+    st.title("📚 Informasi Kimia")
 
-    massa = st.number_input("Massa (gram)",0.0)
-    mr = st.number_input("Mr",1.0)
-
-    if st.button("Hitung Mol"):
-
-        mol = massa / mr
-
-        hasil = f"Mol = {mol:.4f} mol"
-
-        st.success(hasil)
-
-        st.session_state.history.append(hasil)
-
-# ================= TITRASI =================
-
-elif selected == "Titrasi":
-
-    st.title("⚗️ Kalkulator Titrasi")
-
-    M1 = st.number_input("Molaritas Asam",0.1)
-    V1 = st.number_input("Volume Asam",10.0)
-    M2 = st.number_input("Molaritas Basa",0.1)
-
-    if st.button("Hitung Titrasi"):
-
-        V2 = (M1*V1)/M2
-
-        hasil = f"Volume basa = {V2:.2f} mL"
-
-        st.success(hasil)
-
-        st.session_state.history.append(hasil)
-
-# ================= LAB =================
-
-elif selected == "Laboratory":
-
-    st.title("🧪 Smart Laboratory")
-
-    temp = st.slider(
-        "Temperature",
-        0,
-        200,
-        25
-    )
-
-    ph = st.slider(
-        "pH",
-        0,
-        14,
-        7
-    )
-
-    st.markdown(f"""
+    st.markdown("""
     <div class="card">
 
-    <h3>⚗️ Laboratory Parameters</h3>
+    <h3>🧪 Kimia Dasar</h3>
 
-    🌡️ Temperature : {temp}°C <br><br>
-
-    🧪 pH Level : {ph}
+    <p>
+    Kimia adalah ilmu yang mempelajari
+    struktur, sifat, komposisi,
+    dan perubahan materi.
+    </p>
 
     </div>
     """, unsafe_allow_html=True)
 
-# ================= DATABASE =================
+# ================= ANALISIS =================
 
-elif selected == "Database":
+elif selected == "Analisis Kimia":
 
-    st.title("📚 Chemical Database")
+    st.title("📊 Analisis Kimia")
 
-    df = pd.DataFrame({
+    values = np.random.randint(10,100,12)
 
-        "Chemical":[
-            "HCl",
-            "NaOH",
-            "NH3",
-            "H2SO4"
-        ],
+    fig = px.line(
+        y=values
+    )
 
-        "Type":[
-            "Strong Acid",
-            "Strong Base",
-            "Weak Base",
-            "Strong Acid"
-        ],
+    fig.update_layout(
 
-        "Status":[
-            "Stable",
-            "Active",
-            "Monitor",
-            "Warning"
-        ]
-    })
+        paper_bgcolor="rgba(0,0,0,0)",
 
-    st.dataframe(
-        df,
+        plot_bgcolor="rgba(255,255,255,0.3)"
+    )
+
+    st.plotly_chart(
+        fig,
         use_container_width=True
     )
+
+# ================= TENTANG =================
+
+elif selected == "Tentang":
+
+    st.title("ℹ️ Tentang")
+
+    st.markdown("""
+    <div class="card">
+
+    <h2>🧪 ChemAssist Ultra</h2>
+
+    <p>
+    Dashboard kimia modern berbasis
+    Streamlit dengan UI futuristik.
+    </p>
+
+    </div>
+    """, unsafe_allow_html=True)
 
 # ================= HISTORY =================
 
@@ -621,58 +682,8 @@ elif selected == "History":
     else:
 
         for item in st.session_state.history:
+
             st.write("✅", item)
-
-# ================= SETTINGS =================
-
-elif selected == "Settings":
-
-    st.title("⚙️ Settings")
-
-    dark = st.toggle("🌙 Dark Mode")
-
-    notif = st.toggle("🔔 Realtime Notification")
-
-    sound = st.toggle("🔊 System Sound")
-
-    if dark:
-
-        st.markdown("""
-        <style>
-
-        .stApp{
-
-            background:linear-gradient(
-            135deg,
-            #020617,
-            #0F172A,
-            #111827
-            ) !important;
-        }
-
-        html, body, [class*="css"]{
-
-            color:white !important;
-        }
-
-        </style>
-        """, unsafe_allow_html=True)
-
-        st.success("🌙 Dark Mode Activated")
-
-    else:
-
-        st.success("☀️ Light Mode Activated")
-
-# ================= LOGOUT =================
-
-st.sidebar.markdown("---")
-
-if st.sidebar.button("🚪 Logout"):
-
-    st.session_state.login = False
-
-    st.rerun()
 
 # HEADER / LOGO
 # =========================================================
