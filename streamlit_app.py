@@ -381,8 +381,7 @@ with st.sidebar:
             "pH",
             "Informasi",
             "Analisis Kimia",
-            "Tentang",
-            "History"
+            "Tentang"
         ],
 
         icons=[
@@ -391,8 +390,7 @@ with st.sidebar:
             "eyedropper",
             "book-fill",
             "activity",
-            "info-circle-fill",
-            "clock-history"
+            "info-circle-fill"
         ],
 
         menu_icon="stars",
@@ -444,7 +442,7 @@ with st.sidebar:
         st.session_state.login = False
 
         st.rerun()
-
+        
 # ================= DARK MODE =================
 
 if dark_mode:
