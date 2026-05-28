@@ -563,7 +563,7 @@ with st.sidebar:
 
 # ================= DARK MODE =================
 
-    if dark_mode:
+if dark_mode:
 
     st.markdown("""
     <style>
