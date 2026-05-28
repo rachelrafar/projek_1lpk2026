@@ -559,7 +559,7 @@ if selected != st.session_state.menu:
 
 menu = st.session_state.menu
 
-st.markdown("---")
+    st.markdown("---")
 
     if st.button("🚪 Logout"):
 
