@@ -1,6 +1,3 @@
-# ChemAssist Ultra Modern Dashboard (Full Code)
-
-```python
 # ================= IMPORT =================
 
 import streamlit as st
@@ -676,24 +673,6 @@ if st.sidebar.button("🚪 Logout"):
     st.session_state.login = False
 
     st.rerun()
-
-```
-
-## requirements.txt
-
-```txt
-streamlit
-pandas
-numpy
-plotly
-streamlit-option-menu
-```
-
-## Run Local
-
-```bash
-streamlit run app.py
-```
 
 # HEADER / LOGO
 # =========================================================
