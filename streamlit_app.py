@@ -344,22 +344,18 @@ transform:translateY(-120vh);
 
 """, unsafe_allow_html=True)
 
-# HEADER / LOGO
-# =========================================================
-st.markdown("""
+# ================= HEADER =================
 
-<div class="logo-container">
-    <div class="logo-spin">🧪</div>
-</div>
+st.markdown("""
+<div class="logo">🧪</div>
 
 <div class="main-title">
-ChemAssist Dashboard
+ChemAssist Ultra
 </div>
 
 <div class="subtitle">
-Sistem Analisis Parameter Laboratorium Kimia Interaktif
+Next Generation Chemistry Dashboard
 </div>
-
 """, unsafe_allow_html=True)
 
 # ================= SESSION =================
