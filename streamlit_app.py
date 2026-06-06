@@ -1068,9 +1068,9 @@ analisis_spesifik = {
 
 }
 
-if senyawa in analisis_spesifik:
+    if senyawa in analisis_spesifik:
     st.success(analisis_spesifik[senyawa])
-else:
+    else:
     st.info("Analisis spesifik senyawa belum tersedia. Analisis didasarkan pada golongan senyawanya.")
     
     st.subheader("📋 Kesimpulan")
