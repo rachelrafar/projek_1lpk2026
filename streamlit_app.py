@@ -1123,47 +1123,6 @@ elif senyawa == "Acetone" or senyawa == "CH3COCH3":
 else:
     st.write("• Perilaku larutan mengikuti karakteristik golongan senyawanya")
 
-    st.subheader("⚡ Reaktivitas")
-
-    if jenis == "Oksidator":
-        st.error("Reaktivitas tinggi terhadap zat pereduksi.")
-
-    elif jenis == "Asam kuat":
-        st.warning("Bereaksi kuat dengan basa dan beberapa logam.")
-
-    elif jenis == "Basa kuat":
-        st.warning("Bereaksi kuat dengan asam.")
-
-    else:
-        st.success("Relatif stabil pada kondisi laboratorium normal.")
-
-    st.subheader("🥽 APD yang Disarankan")
-
-    if "Korosif" in data[3]:
-        st.warning("🥼 Jas Lab | 🧤 Sarung Tangan | 🥽 Kacamata Safety")
-
-    elif "Beracun" in data[3] or "Toksik" in data[3]:
-        st.error("😷 Masker | 🧤 Sarung Tangan | 🥽 Kacamata Safety")
-
-    elif "Mudah terbakar" in data[3]:
-        st.warning("🔥 Hindari sumber api | 🥽 Kacamata Safety")
-
-    else:
-        st.success("APD standar laboratorium.")
-
-    st.subheader("📦 Penyimpanan")
-
-    if "Korosif" in data[3]:
-        st.warning("Simpan dalam wadah tahan korosi dan tertutup rapat.")
-
-    elif "Mudah terbakar" in data[3]:
-        st.warning("Simpan jauh dari sumber panas dan api.")
-
-    elif "Beracun" in data[3] or "Toksik" in data[3]:
-        st.error("Simpan di area aman dan berventilasi baik.")
-
-    else:
-        st.success("Simpan pada suhu ruang dalam wadah tertutup.")
 
     st.subheader("📋 Kesimpulan")
 
