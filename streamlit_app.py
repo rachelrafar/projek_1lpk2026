@@ -1059,7 +1059,7 @@ st.info(f"🧠 Fakta Kimia : {fakta}")
 
 # ================= TENTANG =================
 
-elif menu=="ℹ️ Tentang":
+if menu=="ℹ️ Tentang":
 
     st.title("ℹ️ Tentang Aplikasi")
 
