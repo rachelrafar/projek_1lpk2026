@@ -975,30 +975,70 @@ elif menu=="🧪 Analisis Kimia":
 
     st.subheader("📈 Interpretasi Kimia")
 
-    if "Asam" in data[1]:
-
-        st.success("""
-Senyawa ini bersifat asam dan menghasilkan ion H+ dalam larutan.
-Digunakan pada analisis laboratorium dan industri kimia.
+if data[1] == "Asam kuat":
+    st.error(f"""
+{data[0]} merupakan asam kuat yang terionisasi hampir sempurna dalam air.
+Senyawa ini bersifat korosif dan dapat menurunkan pH larutan secara signifikan.
 """)
 
-    elif "Basa" in data[1]:
-
-        st.info("""
-Senyawa ini bersifat basa dan menghasilkan ion OH- dalam larutan.
-Umumnya digunakan untuk netralisasi dan industri.
+elif data[1] == "Asam lemah":
+    st.warning(f"""
+{data[0]} merupakan asam lemah yang hanya terionisasi sebagian dalam air.
+Keasamannya lebih rendah dibanding asam kuat.
 """)
 
-    elif "Garam" in data[1]:
-
-        st.warning("""
-Senyawa ini termasuk golongan garam hasil reaksi asam dan basa.
+elif data[1] == "Basa kuat":
+    st.info(f"""
+{data[0]} merupakan basa kuat yang menghasilkan ion OH⁻ dalam jumlah besar.
+Sering digunakan untuk netralisasi asam dan pengaturan pH.
 """)
 
-    else:
+elif data[1] == "Basa lemah":
+    st.info(f"""
+{data[0]} merupakan basa lemah yang terionisasi sebagian dalam air.
+Digunakan dalam berbagai proses kimia dan laboratorium.
+""")
 
-        st.write("""
-Senyawa ini memiliki karakteristik kimia khusus berdasarkan gugus fungsinya.
+elif "Garam" in data[1]:
+    st.success(f"""
+{data[0]} termasuk golongan garam.
+Sifat larutannya dapat bersifat netral, asam, atau basa tergantung ion penyusunnya.
+""")
+
+elif data[1] == "Alkohol":
+    st.success(f"""
+{data[0]} merupakan senyawa alkohol yang banyak digunakan sebagai pelarut,
+disinfektan, dan bahan baku industri kimia.
+""")
+
+elif data[1] == "Keton":
+    st.warning(f"""
+{data[0]} merupakan senyawa keton yang mudah menguap dan banyak digunakan
+sebagai pelarut organik.
+""")
+
+elif data[1] == "Aromatik":
+    st.error(f"""
+{data[0]} merupakan senyawa aromatik yang memiliki cincin benzena.
+Beberapa senyawa aromatik bersifat toksik sehingga perlu penanganan khusus.
+""")
+
+elif data[1] == "Karbohidrat":
+    st.success(f"""
+{data[0]} merupakan karbohidrat yang berfungsi sebagai sumber energi
+dan banyak ditemukan pada sistem biologis.
+""")
+
+elif data[1] == "Oksidator":
+    st.error(f"""
+{data[0]} merupakan oksidator kuat yang dapat mempercepat reaksi oksidasi
+dan harus disimpan dengan hati-hati.
+""")
+
+else:
+    st.write(f"""
+{data[0]} memiliki karakteristik kimia khusus sesuai gugus fungsinya
+dan digunakan pada berbagai aplikasi laboratorium maupun industri.
 """)
 
     fakta=random.choice([
