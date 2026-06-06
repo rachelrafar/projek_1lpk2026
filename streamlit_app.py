@@ -1032,11 +1032,21 @@ elif menu=="🧪 Analisis Kimia":
 
 "HF":"Meskipun tergolong asam lemah, memiliki bahaya tinggi karena dapat menembus jaringan dan bereaksi dengan kalsium tubuh.",
 
+"H3BO3":"Asam lemah yang sering digunakan sebagai antiseptik dan bahan baku berbagai produk kimia.",
+
 "NaOH":"Basa kuat yang terdisosiasi sempurna menghasilkan ion OH⁻ dan sering digunakan sebagai titran standar.",
 
 "KOH":"Basa kuat yang umum digunakan pada industri sabun dan elektrolit baterai.",
 
+"Ca(OH)2":"Basa kuat yang menghasilkan ion OH⁻ dalam larutan dan sering digunakan untuk pengolahan air.",
+
 "NH3":"Basa lemah yang membentuk ion amonium dalam air dan banyak digunakan dalam industri pupuk.",
+
+"NH4OH":"Basa lemah yang menghasilkan ion amonium dan ion hidroksida dalam larutan.",
+
+"NaCl":"Garam yang terdisosiasi menghasilkan ion Na⁺ dan Cl⁻ dalam larutan.",
+
+"KCl":"Garam yang menghasilkan ion kalium dan klorida dalam larutan serta banyak digunakan di laboratorium.",
 
 "AgNO3":"Menghasilkan ion Ag⁺ yang digunakan dalam analisis argentometri dan pembentukan endapan halida.",
 
@@ -1044,15 +1054,47 @@ elif menu=="🧪 Analisis Kimia":
 
 "FeCl3":"Digunakan sebagai pereaksi identifikasi fenol karena membentuk kompleks berwarna.",
 
+"MgSO4":"Garam yang terdisosiasi menghasilkan ion magnesium dan sulfat dalam larutan.",
+
+"Na2CO3":"Garam basa yang dapat meningkatkan pH larutan dan digunakan dalam berbagai proses industri.",
+
+"NaHCO3":"Garam basa yang dapat bereaksi dengan asam menghasilkan gas karbon dioksida.",
+
+"Pb(NO3)2":"Menghasilkan ion Pb²⁺ dalam larutan dan sering digunakan sebagai pereaksi analisis kimia.",
+
+"ZnSO4":"Sumber ion Zn²⁺ yang digunakan dalam berbagai aplikasi laboratorium dan industri.",
+
+"Na2SO4":"Garam yang terdisosiasi menghasilkan ion natrium dan sulfat dalam larutan.",
+
+"HgCl2":"Sumber ion merkuri(II) yang bersifat sangat toksik dan memerlukan penanganan khusus.",
+
+"NaNO3":"Garam yang mengandung ion nitrat dan digunakan dalam berbagai proses industri.",
+
+"NH4Cl":"Garam amonium yang menghasilkan ion NH4⁺ dan Cl⁻ dalam larutan.",
+
+"NH4NO3":"Garam yang mengandung ion amonium dan nitrat serta digunakan sebagai sumber nitrogen.",
+
+"CaCO3":"Garam karbonat yang banyak ditemukan pada batu kapur dan berbagai material alami.",
+
+"MgCl2":"Garam yang menghasilkan ion magnesium dan klorida dalam larutan.",
+
+"Al2(SO4)3":"Digunakan dalam pengolahan air dan menghasilkan ion aluminium dalam larutan.",
+
+"FeSO4":"Sumber ion Fe²⁺ yang digunakan dalam berbagai analisis dan proses industri.",
+
+"CuCl2":"Sumber ion Cu²⁺ yang digunakan dalam sintesis dan analisis kimia.",
+
+"Na3PO4":"Garam basa yang menghasilkan ion fosfat dan sering digunakan sebagai pengatur pH.",
+
+"KNO3":"Garam yang mengandung ion kalium dan nitrat serta dikenal sebagai oksidator.",
+
 "KMnO4":"Oksidator kuat yang digunakan sebagai titran pada permanganometri.",
 
 "K2Cr2O7":"Oksidator kuat yang digunakan pada titrasi redoks dan mengandung kromium(VI) yang toksik.",
 
 "H2O2":"Oksidator yang mudah terurai menghasilkan air dan oksigen.",
 
-"Benzene":"Senyawa aromatik nonpolar yang stabil karena resonansi dan bersifat karsinogenik.",
-
-"Toluene":"Turunan benzena yang banyak digunakan sebagai pelarut dan bahan baku sintesis organik.",
+"NaClO":"Oksidator yang digunakan sebagai pemutih dan desinfektan serta dapat menghasilkan gas klorin jika bereaksi dengan asam.",
 
 "CH3OH":"Alkohol sederhana yang sangat toksik dan dapat menyebabkan kebutaan bila tertelan.",
 
@@ -1060,14 +1102,27 @@ elif menu=="🧪 Analisis Kimia":
 
 "Acetone":"Pelarut organik volatil yang mudah menguap dan bercampur sempurna dengan air.",
 
+"CH3COCH3":"Pelarut organik volatil yang mudah menguap dan bercampur sempurna dengan air.",
+
+"Benzene":"Senyawa aromatik nonpolar yang stabil karena resonansi dan bersifat karsinogenik.",
+
+"Toluene":"Turunan benzena yang banyak digunakan sebagai pelarut dan bahan baku sintesis organik.",
+
 "CHCl3":"Pelarut organik dengan efek depresan sistem saraf pusat jika terhirup dalam jumlah besar.",
 
 "CCl4":"Pelarut nonpolar yang bersifat hepatotoksik sehingga penggunaannya kini dibatasi.",
 
-"NaClO":"Oksidator yang digunakan sebagai pemutih dan desinfektan serta dapat menghasilkan gas klorin jika bereaksi dengan asam."
+"Glucose":"Karbohidrat sederhana golongan monosakarida yang merupakan sumber energi utama bagi organisme hidup.",
+
+"C6H12O6":"Karbohidrat sederhana golongan monosakarida yang merupakan sumber energi utama bagi organisme hidup.",
+
+"Sucrose":"Karbohidrat golongan disakarida yang tersusun dari glukosa dan fruktosa.",
+
+"C12H22O11":"Karbohidrat golongan disakarida yang tersusun dari glukosa dan fruktosa.",
+
+"Urea":"Senyawa amida yang banyak digunakan sebagai bahan baku pupuk dan berbagai proses kimia."
 
 }
-
     if senyawa in analisis_spesifik:
         st.success(analisis_spesifik[senyawa])
     else:
