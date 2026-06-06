@@ -819,6 +819,44 @@ elif menu=="💧 Larutan":
 {V2:.2f} mL
 """)
 
+    st.markdown(f"""
+<div style='
+background:rgba(255,255,255,0.7);
+padding:28px;
+border-radius:24px;
+border:1px solid #eee6ff;
+box-shadow:0 5px 18px rgba(200,200,255,.15);
+font-family:Segoe UI;
+color:#5b4b8a;
+line-height:2;
+font-size:18px;
+'>
+
+<h3 style='
+color:#7c6bb3;
+margin-bottom:18px;
+font-weight:700;
+'>
+💧 Langkah Pengenceran Larutan
+</h3>
+
+<div style='font-size:17px;'>
+
+1️⃣ Ambil <b>{V1:.2f} mL</b> larutan stok {info['nama']} dengan konsentrasi <b>{M1} M</b><br>
+
+2️⃣ Masukkan ke dalam labu ukur atau wadah yang sesuai<br>
+
+3️⃣ Tambahkan akuades hingga volume mencapai <b>{V2:.2f} mL</b><br>
+
+4️⃣ Tutup dan homogenkan larutan<br>
+
+5️⃣ Larutan dengan konsentrasi <b>{M2} M</b> siap digunakan
+
+</div>
+
+</div>
+""", unsafe_allow_html=True)
+
 # ================= PH =================
 
 elif menu=="⚗️ pH":
