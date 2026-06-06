@@ -976,71 +976,105 @@ elif menu=="🧪 Analisis Kimia":
     st.subheader("📈 Interpretasi Kimia")
 
 if data[1] == "Asam kuat":
-    st.error(f"""
-{data[0]} merupakan asam kuat yang terionisasi hampir sempurna dalam air.
-Senyawa ini bersifat korosif dan dapat menurunkan pH larutan secara signifikan.
+    st.error("""
+Senyawa termasuk asam kuat yang terionisasi hampir sempurna dalam air
+dan menghasilkan konsentrasi ion H⁺ yang tinggi.
 """)
 
 elif data[1] == "Asam lemah":
-    st.warning(f"""
-{data[0]} merupakan asam lemah yang hanya terionisasi sebagian dalam air.
-Keasamannya lebih rendah dibanding asam kuat.
+    st.warning("""
+Senyawa termasuk asam lemah yang hanya terionisasi sebagian dalam air.
 """)
 
 elif data[1] == "Basa kuat":
-    st.info(f"""
-{data[0]} merupakan basa kuat yang menghasilkan ion OH⁻ dalam jumlah besar.
-Sering digunakan untuk netralisasi asam dan pengaturan pH.
+    st.info("""
+Senyawa termasuk basa kuat yang menghasilkan ion OH⁻ dalam jumlah besar.
 """)
 
 elif data[1] == "Basa lemah":
-    st.info(f"""
-{data[0]} merupakan basa lemah yang terionisasi sebagian dalam air.
-Digunakan dalam berbagai proses kimia dan laboratorium.
+    st.info("""
+Senyawa termasuk basa lemah yang hanya terionisasi sebagian dalam air.
 """)
 
 elif "Garam" in data[1]:
-    st.success(f"""
-{data[0]} termasuk golongan garam.
-Sifat larutannya dapat bersifat netral, asam, atau basa tergantung ion penyusunnya.
+    st.success("""
+Senyawa termasuk golongan garam yang tersusun dari kation dan anion.
 """)
 
 elif data[1] == "Alkohol":
-    st.success(f"""
-{data[0]} merupakan senyawa alkohol yang banyak digunakan sebagai pelarut,
-disinfektan, dan bahan baku industri kimia.
+    st.success("""
+Senyawa mengandung gugus hidroksil (-OH) dan umum digunakan sebagai pelarut.
 """)
 
 elif data[1] == "Keton":
-    st.warning(f"""
-{data[0]} merupakan senyawa keton yang mudah menguap dan banyak digunakan
-sebagai pelarut organik.
+    st.warning("""
+Senyawa mengandung gugus karbonil (>C=O) yang terikat pada dua atom karbon.
 """)
 
 elif data[1] == "Aromatik":
-    st.error(f"""
-{data[0]} merupakan senyawa aromatik yang memiliki cincin benzena.
-Beberapa senyawa aromatik bersifat toksik sehingga perlu penanganan khusus.
+    st.error("""
+Senyawa mengandung cincin aromatik yang memberikan kestabilan resonansi.
 """)
 
 elif data[1] == "Karbohidrat":
-    st.success(f"""
-{data[0]} merupakan karbohidrat yang berfungsi sebagai sumber energi
-dan banyak ditemukan pada sistem biologis.
+    st.success("""
+Senyawa merupakan karbohidrat yang berfungsi sebagai sumber energi biologis.
 """)
 
 elif data[1] == "Oksidator":
-    st.error(f"""
-{data[0]} merupakan oksidator kuat yang dapat mempercepat reaksi oksidasi
-dan harus disimpan dengan hati-hati.
+    st.error("""
+Senyawa merupakan oksidator yang dapat menerima elektron dari zat lain.
+""")
+
+elif data[1] == "Pelarut":
+    st.info("""
+Senyawa umum digunakan sebagai media pelarut berbagai zat kimia.
+""")
+
+elif data[1] == "Amida":
+    st.success("""
+Senyawa mengandung gugus fungsi amida (-CONH₂).
 """)
 
 else:
-    st.write(f"""
-{data[0]} memiliki karakteristik kimia khusus sesuai gugus fungsinya
-dan digunakan pada berbagai aplikasi laboratorium maupun industri.
+    st.write("""
+Karakteristik kimia mengikuti sifat gugus fungsi utama yang dimiliki senyawa.
+""")
+    
+    st.subheader("🥽 APD yang Disarankan")
+
+if "Korosif" in data[3]:
+    st.warning("""
+🧤 Sarung tangan tahan kimia
+
+🥽 Kacamata keselamatan
+
+🥼 Jas laboratorium
 """)
 
+elif "Beracun" in data[3] or "Toksik" in data[3]:
+    st.error("""
+😷 Masker atau respirator
+
+🧤 Sarung tangan
+
+🥽 Kacamata keselamatan
+""")
+
+elif "Mudah terbakar" in data[3]:
+    st.warning("""
+🔥 Jauhkan dari sumber api
+
+🥽 Kacamata keselamatan
+
+🥼 Jas laboratorium
+""")
+
+else:
+    st.success("""
+🥼 APD standar laboratorium sudah memadai.
+""")
+    
 fakta=random.choice([
 
     "Larutan asam kuat terionisasi sempurna di dalam air.",
