@@ -1037,12 +1037,11 @@ dan harus disimpan dengan hati-hati.
 
 else:
     st.write(f"""
-    
 {data[0]} memiliki karakteristik kimia khusus sesuai gugus fungsinya
 dan digunakan pada berbagai aplikasi laboratorium maupun industri.
 """)
 
-    fakta=random.choice([
+fakta=random.choice([
 
     "Larutan asam kuat terionisasi sempurna di dalam air.",
 
@@ -1054,10 +1053,9 @@ dan digunakan pada berbagai aplikasi laboratorium maupun industri.
 
     "pH menentukan tingkat keasaman larutan."
 
-    ])
+])
 
-    st.info(f"🧠 Fakta Kimia : {fakta}")
-
+st.info(f"🧠 Fakta Kimia : {fakta}")
 
 # ================= TENTANG =================
 
