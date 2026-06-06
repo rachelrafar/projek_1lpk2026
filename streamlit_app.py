@@ -1074,7 +1074,6 @@ else:
     st.info("Analisis spesifik senyawa belum tersedia. Analisis didasarkan pada golongan senyawanya.")
 
     st.subheader("📋 Kesimpulan")
-
     st.success(f"""
 {data[0]} merupakan senyawa golongan {data[1].lower()}
 dengan massa molekul relatif {data[2]}.
