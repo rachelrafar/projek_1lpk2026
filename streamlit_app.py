@@ -1035,7 +1035,7 @@ elif data[1] == "Oksidator":
 dan harus disimpan dengan hati-hati.
 """)
 
-else:
+elif:
     st.write(f"""
 {data[0]} memiliki karakteristik kimia khusus sesuai gugus fungsinya
 dan digunakan pada berbagai aplikasi laboratorium maupun industri.
