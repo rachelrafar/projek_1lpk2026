@@ -794,7 +794,7 @@ elif menu=="💧 Larutan":
 
             2️⃣ Larutkan dengan sedikit akuades<br>
 
-            3️⃣ Masukkan ke labu ukur <b>{V} mL</b><br>
+            3️⃣ Masukkan ke labu takar <b>{V} mL</b><br>
 
             4️⃣ Tambahkan akuades hingga tanda batas<br>
 
@@ -863,7 +863,7 @@ larutan {M2} M.
 
                 2️⃣ Pipet <b>{V1:.2f} mL</b> larutan stok<br>
 
-                3️⃣ Masukkan ke dalam labu ukur<br>
+                3️⃣ Masukkan ke dalam labu takar<br>
 
                 4️⃣ Tambahkan akuades hingga volume mencapai <b>{V2:.2f} mL</b><br>
 
