@@ -973,68 +973,31 @@ elif menu=="🧪 Analisis Kimia":
     </div>
     """, unsafe_allow_html=True)
 
-    st.subheader("📈 Interpretasi Kimia")
+ st.subheader("🧪 Interpretasi Kimia")
 
-if data[1] == "Asam kuat":
-    st.error("""
-Senyawa termasuk asam kuat yang terionisasi hampir sempurna dalam air
-dan menghasilkan konsentrasi ion H⁺ yang tinggi.
-""")
+if "Asam" in data[1]:
+    st.info("Senyawa ini bersifat asam dan mampu menghasilkan ion H⁺ dalam larutan.")
 
-elif data[1] == "Asam lemah":
-    st.warning("""
-Senyawa termasuk asam lemah yang hanya terionisasi sebagian dalam air.
-""")
-
-elif data[1] == "Basa kuat":
-    st.info("""
-Senyawa termasuk basa kuat yang menghasilkan ion OH⁻ dalam jumlah besar.
-""")
-
-elif data[1] == "Basa lemah":
-    st.info("""
-Senyawa termasuk basa lemah yang hanya terionisasi sebagian dalam air.
-""")
+elif "Basa" in data[1]:
+    st.info("Senyawa ini bersifat basa dan mampu menghasilkan ion OH⁻ dalam larutan.")
 
 elif "Garam" in data[1]:
-    st.success("""
-Senyawa termasuk golongan garam yang tersusun dari kation dan anion.
-""")
-
-elif data[1] == "Alkohol":
-    st.success("""
-Senyawa mengandung gugus hidroksil (-OH) dan umum digunakan sebagai pelarut.
-""")
-
-elif data[1] == "Keton":
-    st.warning("""
-Senyawa mengandung gugus karbonil (>C=O) yang terikat pada dua atom karbon.
-""")
-
-elif data[1] == "Aromatik":
-    st.error("""
-Senyawa mengandung cincin aromatik yang memberikan kestabilan resonansi.
-""")
-
-elif data[1] == "Karbohidrat":
-    st.success("""
-Senyawa merupakan karbohidrat yang berfungsi sebagai sumber energi biologis.
-""")
+    st.info("Senyawa ini termasuk golongan garam yang tersusun dari kation dan anion.")
 
 elif data[1] == "Oksidator":
-    st.error("""
-Senyawa merupakan oksidator yang dapat menerima elektron dari zat lain.
-""")
+    st.warning("Senyawa ini memiliki kemampuan mengoksidasi zat lain.")
 
-elif data[1] == "Pelarut":
-    st.info("""
-Senyawa umum digunakan sebagai media pelarut berbagai zat kimia.
-""")
+elif data[1] == "Alkohol":
+    st.success("Senyawa ini mengandung gugus hidroksil (-OH).")
 
-elif data[1] == "Amida":
-    st.success("""
-Senyawa mengandung gugus fungsi amida (-CONH₂).
-""")
+elif data[1] == "Keton":
+    st.success("Senyawa ini mengandung gugus karbonil (>C=O).")
+
+elif data[1] == "Aromatik":
+    st.success("Senyawa ini memiliki cincin aromatik yang stabil.")
+
+else:
+    st.write("Karakteristik kimia mengikuti gugus fungsi utama yang dimiliki.")
 
 else:
     st.write("""
