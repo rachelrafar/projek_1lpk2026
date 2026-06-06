@@ -599,7 +599,8 @@ with st.sidebar:
 
         </style>
         """, unsafe_allow_html=True)
-    
+
+menu = selected
 # ================= HOME =================
 
 if menu=="🏠 Home":
