@@ -1068,10 +1068,10 @@ elif menu=="🧪 Analisis Kimia":
 
 }
 
-  if senyawa in analisis_spesifik:
-    st.success(analisis_spesifik[senyawa])
-else:
-    st.info("Analisis spesifik senyawa belum tersedia. Analisis didasarkan pada golongan senyawanya.")
+    if senyawa in analisis_spesifik:
+        st.success(analisis_spesifik[senyawa])
+    else:
+        st.info("Analisis spesifik senyawa belum tersedia. Analisis didasarkan pada golongan senyawanya.")
 
     st.subheader("📋 Kesimpulan")
 
@@ -1083,6 +1083,7 @@ Berdasarkan data yang tersedia, senyawa ini memiliki tingkat bahaya
 berupa {data[3].lower()} sehingga memerlukan penanganan yang sesuai
 dengan prosedur keselamatan laboratorium.
 """)
+    
 # ================= TENTANG =================
 
 if menu=="ℹ️ Tentang":
