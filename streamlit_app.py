@@ -598,7 +598,7 @@ with st.sidebar:
         }
 
         </style>
-        """, unsafe_allow_html=
+        """, unsafe_allow_html=True)
     
 # ================= HOME =================
 
