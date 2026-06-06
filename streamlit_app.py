@@ -598,30 +598,8 @@ with st.sidebar:
         }
 
         </style>
-        """, unsafe_allow_html=True)
-
-# ================= HISTORY =================
-
-    elif selected == "History":
-
-        st.title("📜 History")
-
-    if len(st.session_state.history) == 0:
-
-        st.info("Belum ada histori")
-
-    else:
-
-        for item in st.session_state.history:
-
-            st.write("✅", item)
-
-
-if selected != st.session_state.menu:
-    st.session_state.menu = selected
-
-menu = st.session_state.menu
-
+        """, unsafe_allow_html=
+    
 # ================= HOME =================
 
 if menu=="🏠 Home":
