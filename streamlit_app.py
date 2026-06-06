@@ -973,7 +973,7 @@ elif menu=="🧪 Analisis Kimia":
     </div>
     """, unsafe_allow_html=True)
 
- st.subheader("🧪 Interpretasi Kimia")
+ st.subheader("Interpretasi Kimia")
 
 if "Asam" in data[1]:
     st.info("Senyawa ini bersifat asam dan mampu menghasilkan ion H⁺ dalam larutan.")
