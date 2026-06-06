@@ -721,19 +721,19 @@ if menu=="🏠 Home":
 # ================= LARUTAN =================
 
 elif menu=="💧 Larutan":
-    
+
     st.title("💧 Smart Solution Maker")
 
     if st.button("⬅ Kembali ke Home"):
         go_to("🏠 Home")
 
-    senyawa=st.selectbox(
-    "Pilih Senyawa",
-    list(data_ph.keys()),
-    format_func=lambda x:f"{data_ph[x]['nama']} ({x})"
+    senyawa = st.selectbox(
+        "Pilih Senyawa",
+        list(data_ph.keys()),
+        format_func=lambda x: f"{data_ph[x]['nama']} ({x})"
     )
 
-    info=data_ph[senyawa]
+    info = data_ph[senyawa]
 
     st.info(f"""
 🧪 Nama Senyawa : {info['nama']}
@@ -743,21 +743,24 @@ elif menu=="💧 Larutan":
 ⚖️ Mr : {info['Mr']} g/mol
 """)
 
-    metode=st.selectbox(
-    "Pilih Jenis Perhitungan",
-    ["Pembuatan Larutan","Pengenceran"]
+    metode = st.selectbox(
+        "Pilih Jenis Perhitungan",
+        ["Pembuatan Larutan", "Pengenceran"]
     )
 
-    if metode=="Pembuatan Larutan":
+    # ================= PEMBUATAN LARUTAN =================
 
-        M=st.number_input("Konsentrasi Larutan (M)",0.1)
-        V=st.number_input("Volume Larutan (mL)",100.0)
+    if metode == "Pembuatan Larutan":
+
+        M = st.number_input("Konsentrasi Larutan (M)", 0.1)
+        V = st.number_input("Volume Larutan (mL)", 100.0)
 
         if st.button("Hitung Massa Senyawa"):
+
             with st.spinner("Sedang menghitung..."):
                 time.sleep(3)
 
-            massa=(info['Mr']*M*V)/1000
+            massa = (info['Mr'] * M * V) / 1000
 
             st.success(f"""
 ✅ Massa senyawa yang diperlukan:
@@ -776,7 +779,7 @@ elif menu=="💧 Larutan":
             line-height:2;
             font-size:18px;
             '>
-            
+
             <h3 style='
             color:#7c6bb3;
             margin-bottom:18px;
@@ -784,79 +787,94 @@ elif menu=="💧 Larutan":
             '>
             🧪 Langkah Pembuatan Larutan
             </h3>
-            
+
             <div style='font-size:17px;'>
-            
+
             1️⃣ Timbang <b>{massa:.4f} gram</b> {info['nama']}<br>
-            
+
             2️⃣ Larutkan dengan sedikit akuades<br>
-            
+
             3️⃣ Masukkan ke labu ukur <b>{V} mL</b><br>
-            
+
             4️⃣ Tambahkan akuades hingga tanda batas<br>
-            
+
             5️⃣ Homogenkan larutan
-            
+
             </div>
-            
+
             </div>
             """, unsafe_allow_html=True)
 
+    # ================= PENGENCERAN =================
+
     else:
 
-        M1=st.number_input("Molaritas Awal",1.0)
-        V1=st.number_input("Volume Awal (mL)",100.0)
-        M2=st.number_input("Molaritas Akhir",0.1)
+        M1 = st.number_input("Molaritas Awal (M)", 1.0)
+        V1 = st.number_input("Volume Awal (mL)", 100.0)
+        M2 = st.number_input("Molaritas Akhir (M)", 0.1)
 
         if st.button("Hitung Pengenceran"):
-            with st.spinner("Sedang menghitung..."):
-                time.sleep(3)
 
-            V2=(M1*V1)/M2
+            if M2 >= M1:
+                st.error("Molaritas akhir harus lebih kecil dari molaritas awal.")
+            else:
 
-            st.success(f"""
+                with st.spinner("Sedang menghitung..."):
+                    time.sleep(3)
+
+                V2 = (M1 * V1) / M2
+                volume_air = V2 - V1
+
+                st.success(f"""
 ✅ Volume akhir larutan:
 {V2:.2f} mL
 """)
 
-    st.markdown(f"""
-<div style='
-background:rgba(255,255,255,0.7);
-padding:28px;
-border-radius:24px;
-border:1px solid #eee6ff;
-box-shadow:0 5px 18px rgba(200,200,255,.15);
-font-family:Segoe UI;
-color:#5b4b8a;
-line-height:2;
-font-size:18px;
-'>
+                st.info(f"""
+💧 Tambahkan sekitar {volume_air:.2f} mL akuades
+ke dalam {V1:.2f} mL larutan stok untuk memperoleh
+larutan {M2} M.
+""")
 
-<h3 style='
-color:#7c6bb3;
-margin-bottom:18px;
-font-weight:700;
-'>
-💧 Langkah Pengenceran Larutan
-</h3>
+                st.markdown(f"""
+                <div style='
+                background:rgba(255,255,255,0.7);
+                padding:28px;
+                border-radius:24px;
+                border:1px solid #eee6ff;
+                box-shadow:0 5px 18px rgba(200,200,255,.15);
+                font-family:Segoe UI;
+                color:#5b4b8a;
+                line-height:2;
+                font-size:18px;
+                '>
 
-<div style='font-size:17px;'>
+                <h3 style='
+                color:#7c6bb3;
+                margin-bottom:18px;
+                font-weight:700;
+                '>
+                💧 Langkah Pengenceran Larutan
+                </h3>
 
-1️⃣ Ambil <b>{V1:.2f} mL</b> larutan stok {info['nama']} dengan konsentrasi <b>{M1} M</b><br>
+                <div style='font-size:17px;'>
 
-2️⃣ Masukkan ke dalam labu ukur atau wadah yang sesuai<br>
+                1️⃣ Siapkan larutan stok {info['nama']} dengan konsentrasi <b>{M1} M</b><br>
 
-3️⃣ Tambahkan akuades hingga volume mencapai <b>{V2:.2f} mL</b><br>
+                2️⃣ Pipet <b>{V1:.2f} mL</b> larutan stok<br>
 
-4️⃣ Tutup dan homogenkan larutan<br>
+                3️⃣ Masukkan ke dalam labu ukur<br>
 
-5️⃣ Larutan dengan konsentrasi <b>{M2} M</b> siap digunakan
+                4️⃣ Tambahkan akuades hingga volume mencapai <b>{V2:.2f} mL</b><br>
 
-</div>
+                5️⃣ Homogenkan larutan dengan mengocok perlahan<br>
 
-</div>
-""", unsafe_allow_html=True)
+                6️⃣ Larutan <b>{M2} M</b> siap digunakan
 
+                </div>
+
+                </div>
+                """, unsafe_allow_html=True)
 # ================= PH =================
 
 elif menu=="⚗️ pH":
