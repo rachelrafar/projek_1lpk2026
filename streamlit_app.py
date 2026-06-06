@@ -1017,23 +1017,111 @@ elif menu=="🧪 Analisis Kimia":
         interpretasi = "Karakteristik kimia mengikuti gugus fungsi utamanya."
 
     st.info(interpretasi)
+    
+    st.subheader("🔬 Analisis Spesifik Senyawa")
+
+analisis_spesifik = {
+
+"HCl":"Terionisasi sempurna dalam air menghasilkan ion H⁺ dan Cl⁻. Banyak digunakan sebagai titran dan pengatur pH.",
+
+"H2SO4":"Asam diprotik kuat dengan sifat dehidrasi tinggi. Bereaksi eksotermik saat dicampur air.",
+
+"HNO3":"Asam kuat sekaligus oksidator yang mampu mengoksidasi berbagai logam dan senyawa organik.",
+
+"CH3COOH":"Asam lemah yang terionisasi sebagian dalam air dan sering digunakan sebagai pereaksi sintesis organik.",
+
+"HF":"Meskipun tergolong asam lemah, memiliki bahaya tinggi karena dapat menembus jaringan dan bereaksi dengan kalsium tubuh.",
+
+"NaOH":"Basa kuat yang terdisosiasi sempurna menghasilkan ion OH⁻ dan sering digunakan sebagai titran standar.",
+
+"KOH":"Basa kuat yang umum digunakan pada industri sabun dan elektrolit baterai.",
+
+"NH3":"Basa lemah yang membentuk ion amonium dalam air dan banyak digunakan dalam industri pupuk.",
+
+"AgNO3":"Menghasilkan ion Ag⁺ yang digunakan dalam analisis argentometri dan pembentukan endapan halida.",
+
+"CuSO4":"Sumber ion Cu²⁺ yang sering digunakan dalam analisis kualitatif dan pereaksi biuret.",
+
+"FeCl3":"Digunakan sebagai pereaksi identifikasi fenol karena membentuk kompleks berwarna.",
+
+"KMnO4":"Oksidator kuat yang digunakan sebagai titran pada permanganometri.",
+
+"K2Cr2O7":"Oksidator kuat yang digunakan pada titrasi redoks dan mengandung kromium(VI) yang toksik.",
+
+"H2O2":"Oksidator yang mudah terurai menghasilkan air dan oksigen.",
+
+"Benzene":"Senyawa aromatik nonpolar yang stabil karena resonansi dan bersifat karsinogenik.",
+
+"Toluene":"Turunan benzena yang banyak digunakan sebagai pelarut dan bahan baku sintesis organik.",
+
+"CH3OH":"Alkohol sederhana yang sangat toksik dan dapat menyebabkan kebutaan bila tertelan.",
+
+"C2H5OH":"Alkohol yang bercampur sempurna dengan air dan banyak digunakan sebagai pelarut serta antiseptik.",
+
+"Acetone":"Pelarut organik volatil yang mudah menguap dan bercampur sempurna dengan air.",
+
+"CHCl3":"Pelarut organik dengan efek depresan sistem saraf pusat jika terhirup dalam jumlah besar.",
+
+"CCl4":"Pelarut nonpolar yang bersifat hepatotoksik sehingga penggunaannya kini dibatasi.",
+
+"NaClO":"Oksidator yang digunakan sebagai pemutih dan desinfektan serta dapat menghasilkan gas klorin jika bereaksi dengan asam."
+
+}
+
+if senyawa in analisis_spesifik:
+    st.success(analisis_spesifik[senyawa])
+else:
+    st.info("Analisis spesifik senyawa belum tersedia. Analisis didasarkan pada golongan senyawanya.")
 
     st.subheader("💧 Perilaku dalam Larutan")
 
-    if "Asam kuat" in jenis:
-        st.write("• Menurunkan pH secara signifikan")
-    elif "Asam lemah" in jenis:
-        st.write("• Menurunkan pH secara moderat")
-    elif "Basa kuat" in jenis:
-        st.write("• Meningkatkan pH secara signifikan")
-    elif "Basa lemah" in jenis:
-        st.write("• Meningkatkan pH secara moderat")
-    elif "Garam basa" in jenis:
-        st.write("• Larutan cenderung bersifat basa")
-    elif "Garam" in jenis:
-        st.write("• Sifat larutan bergantung pada ion penyusun")
-    else:
-        st.write("• Perilaku larutan bergantung pada sifat senyawa")
+if senyawa == "HCl":
+    st.write("• Terionisasi sempurna menjadi H⁺ dan Cl⁻")
+    st.write("• Bersifat elektrolit kuat")
+    st.write("• Menurunkan pH secara signifikan")
+
+elif senyawa == "NaOH":
+    st.write("• Terdisosiasi sempurna menjadi Na⁺ dan OH⁻")
+    st.write("• Bersifat elektrolit kuat")
+    st.write("• Meningkatkan pH secara signifikan")
+
+elif senyawa == "KMnO4":
+    st.write("• Menghasilkan ion permanganat (MnO₄⁻)")
+    st.write("• Larutan berwarna ungu")
+    st.write("• Berperan sebagai oksidator kuat")
+
+elif senyawa == "AgNO3":
+    st.write("• Terdisosiasi menjadi Ag⁺ dan NO₃⁻")
+    st.write("• Membentuk endapan dengan ion halida")
+    st.write("• Bersifat elektrolit kuat")
+
+elif senyawa == "Benzene":
+    st.write("• Sangat sedikit larut dalam air")
+    st.write("• Bersifat nonpolar")
+    st.write("• Nonelektrolit")
+
+elif senyawa == "Toluene":
+    st.write("• Sukar larut dalam air")
+    st.write("• Bersifat nonpolar")
+    st.write("• Nonelektrolit")
+
+elif senyawa == "C2H5OH":
+    st.write("• Bercampur sempurna dengan air")
+    st.write("• Membentuk ikatan hidrogen")
+    st.write("• Nonelektrolit")
+
+elif senyawa == "CH3OH":
+    st.write("• Larut sempurna dalam air")
+    st.write("• Nonelektrolit")
+    st.write("• Bersifat toksik")
+
+elif senyawa == "Acetone" or senyawa == "CH3COCH3":
+    st.write("• Larut sempurna dalam air")
+    st.write("• Nonelektrolit")
+    st.write("• Pelarut organik yang baik")
+
+else:
+    st.write("• Perilaku larutan mengikuti karakteristik golongan senyawanya")
 
     st.subheader("⚡ Reaktivitas")
 
