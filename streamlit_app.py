@@ -1070,19 +1070,19 @@ analisis_spesifik = {
 
     if senyawa in analisis_spesifik:
     st.success(analisis_spesifik[senyawa])
-    else:
+else:
     st.info("Analisis spesifik senyawa belum tersedia. Analisis didasarkan pada golongan senyawanya.")
-    
-    st.subheader("📋 Kesimpulan")
 
-    st.success(f"""
-    {data[0]} merupakan senyawa golongan {data[1].lower()}
-    dengan massa molekul relatif {data[2]}.
+st.subheader("📋 Kesimpulan")
 
-    Berdasarkan data yang tersedia, senyawa ini memiliki tingkat bahaya
-    berupa {data[3].lower()} sehingga memerlukan penanganan yang sesuai
-    dengan prosedur keselamatan laboratorium.
-    """)
+st.success(f"""
+{data[0]} merupakan senyawa golongan {data[1].lower()}
+dengan massa molekul relatif {data[2]}.
+
+Berdasarkan data yang tersedia, senyawa ini memiliki tingkat bahaya
+berupa {data[3].lower()} sehingga memerlukan penanganan yang sesuai
+dengan prosedur keselamatan laboratorium.
+""")
 
 # ================= TENTANG =================
 
