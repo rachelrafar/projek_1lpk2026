@@ -1020,7 +1020,7 @@ elif menu=="🧪 Analisis Kimia":
     
     st.subheader("🔬 Analisis Spesifik Senyawa")
 
-analisis_spesifik = {
+    analisis_spesifik = {
 
 "HCl":"Terionisasi sempurna dalam air menghasilkan ion H⁺ dan Cl⁻. Banyak digunakan sebagai titran dan pengatur pH.",
 
