@@ -867,7 +867,7 @@ larutan {M2} M.
 
                 4️⃣ Tambahkan akuades hingga volume mencapai <b>{V2:.2f} mL</b><br>
 
-                5️⃣ Homogenkan larutan dengan mengocok perlahan<br>
+                5️⃣ Homogenkan larutan<br>
 
                 6️⃣ Larutan <b>{M2} M</b> siap digunakan
 
