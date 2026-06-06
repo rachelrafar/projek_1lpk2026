@@ -1069,8 +1069,7 @@ elif menu=="🧪 Analisis Kimia":
 }
 
     if senyawa in analisis_spesifik:
-        
-    st.success(analisis_spesifik[senyawa])
+        st.success(analisis_spesifik[senyawa])
 else:
     st.info("Analisis spesifik senyawa belum tersedia. Analisis didasarkan pada golongan senyawanya.")
 
