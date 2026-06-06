@@ -1072,58 +1072,7 @@ if senyawa in analisis_spesifik:
     st.success(analisis_spesifik[senyawa])
 else:
     st.info("Analisis spesifik senyawa belum tersedia. Analisis didasarkan pada golongan senyawanya.")
-
-    st.subheader("💧 Perilaku dalam Larutan")
-
-if senyawa == "HCl":
-    st.write("• Terionisasi sempurna menjadi H⁺ dan Cl⁻")
-    st.write("• Bersifat elektrolit kuat")
-    st.write("• Menurunkan pH secara signifikan")
-
-elif senyawa == "NaOH":
-    st.write("• Terdisosiasi sempurna menjadi Na⁺ dan OH⁻")
-    st.write("• Bersifat elektrolit kuat")
-    st.write("• Meningkatkan pH secara signifikan")
-
-elif senyawa == "KMnO4":
-    st.write("• Menghasilkan ion permanganat (MnO₄⁻)")
-    st.write("• Larutan berwarna ungu")
-    st.write("• Berperan sebagai oksidator kuat")
-
-elif senyawa == "AgNO3":
-    st.write("• Terdisosiasi menjadi Ag⁺ dan NO₃⁻")
-    st.write("• Membentuk endapan dengan ion halida")
-    st.write("• Bersifat elektrolit kuat")
-
-elif senyawa == "Benzene":
-    st.write("• Sangat sedikit larut dalam air")
-    st.write("• Bersifat nonpolar")
-    st.write("• Nonelektrolit")
-
-elif senyawa == "Toluene":
-    st.write("• Sukar larut dalam air")
-    st.write("• Bersifat nonpolar")
-    st.write("• Nonelektrolit")
-
-elif senyawa == "C2H5OH":
-    st.write("• Bercampur sempurna dengan air")
-    st.write("• Membentuk ikatan hidrogen")
-    st.write("• Nonelektrolit")
-
-elif senyawa == "CH3OH":
-    st.write("• Larut sempurna dalam air")
-    st.write("• Nonelektrolit")
-    st.write("• Bersifat toksik")
-
-elif senyawa == "Acetone" or senyawa == "CH3COCH3":
-    st.write("• Larut sempurna dalam air")
-    st.write("• Nonelektrolit")
-    st.write("• Pelarut organik yang baik")
-
-else:
-    st.write("• Perilaku larutan mengikuti karakteristik golongan senyawanya")
-
-
+    
     st.subheader("📋 Kesimpulan")
 
     st.success(f"""
