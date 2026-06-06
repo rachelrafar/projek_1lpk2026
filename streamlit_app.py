@@ -946,79 +946,147 @@ elif menu=="🧪 Analisis Kimia":
     if st.button("⬅ Kembali ke Home"):
         go_to("🏠 Home")
 
-    senyawa=st.selectbox(
-    "Pilih Senyawa",
-    list(db.keys())
+    senyawa = st.selectbox(
+        "Pilih Senyawa",
+        list(db.keys())
     )
 
-    data=db[senyawa]
+    data = db[senyawa]
 
     st.markdown(f"""
     <div class='info-box'>
-    
+
     <h3>📊 Hasil Analisis Senyawa</h3>
 
-    <b>🧪 Nama :</b> {data[0]} <br><br>
+    <b>🧪 Nama :</b> {data[0]}<br><br>
 
-    <b>📌 Rumus :</b> {senyawa} <br><br>
+    <b>📌 Rumus :</b> {senyawa}<br><br>
 
-    <b>⚗️ Jenis :</b> {data[1]} <br><br>
+    <b>⚗️ Jenis :</b> {data[1]}<br><br>
 
-    <b>⚖️ Mr :</b> {data[2]} <br><br>
+    <b>⚖️ Mr :</b> {data[2]}<br><br>
 
-    <b>⚠️  Bahaya :</b> {data[3]} <br><br>
+    <b>⚠️ Bahaya :</b> {data[3]}<br><br>
 
     <b>🧬 Struktur :</b> {data[5]}
 
     </div>
     """, unsafe_allow_html=True)
 
- st.subheader("Interpretasi Kimia")
+    st.subheader("🧪 Interpretasi Kimia")
 
-if "Asam" in data[1]:
-    st.info("Senyawa ini bersifat asam dan mampu menghasilkan ion H⁺ dalam larutan.")
+    jenis = data[1]
 
-elif "Basa" in data[1]:
-    st.info("Senyawa ini bersifat basa dan mampu menghasilkan ion OH⁻ dalam larutan.")
+    if jenis == "Asam kuat":
+        interpretasi = "Asam kuat yang terionisasi hampir sempurna dalam air dan menghasilkan ion H⁺ dalam jumlah besar."
 
-elif "Garam" in data[1]:
-    st.info("Senyawa ini termasuk golongan garam yang tersusun dari kation dan anion.")
+    elif jenis == "Asam lemah":
+        interpretasi = "Asam lemah yang hanya terionisasi sebagian dalam air."
 
-elif data[1] == "Oksidator":
-    st.warning("Senyawa ini memiliki kemampuan mengoksidasi zat lain.")
+    elif jenis == "Basa kuat":
+        interpretasi = "Basa kuat yang menghasilkan ion OH⁻ dalam jumlah besar."
 
-elif data[1] == "Alkohol":
-    st.success("Senyawa ini mengandung gugus hidroksil (-OH).")
+    elif jenis == "Basa lemah":
+        interpretasi = "Basa lemah yang hanya terionisasi sebagian dalam air."
 
-elif data[1] == "Keton":
-    st.success("Senyawa ini mengandung gugus karbonil (>C=O).")
+    elif "Garam" in jenis:
+        interpretasi = "Senyawa ionik yang tersusun dari kation dan anion."
 
-elif data[1] == "Aromatik":
-    st.success("Senyawa ini memiliki cincin aromatik yang stabil.")
+    elif jenis == "Alkohol":
+        interpretasi = "Mengandung gugus hidroksil (-OH) dan umum digunakan sebagai pelarut."
 
-else:
-    st.write("Karakteristik kimia mengikuti gugus fungsi utama yang dimiliki.")
+    elif jenis == "Keton":
+        interpretasi = "Mengandung gugus karbonil (>C=O)."
 
-else:
-    st.write("""
-Karakteristik kimia mengikuti sifat gugus fungsi utama yang dimiliki senyawa.
-""")
-    
-fakta=random.choice([
+    elif jenis == "Aromatik":
+        interpretasi = "Mengandung cincin aromatik yang stabil karena resonansi."
 
-    "Larutan asam kuat terionisasi sempurna di dalam air.",
+    elif jenis == "Karbohidrat":
+        interpretasi = "Merupakan sumber energi penting pada sistem biologis."
 
-    "NaOH merupakan salah satu basa kuat paling umum di laboratorium.",
+    elif jenis == "Amida":
+        interpretasi = "Mengandung gugus fungsi amida (-CONH₂)."
 
-    "H2SO4 digunakan pada baterai kendaraan.",
+    elif jenis == "Pelarut":
+        interpretasi = "Digunakan untuk melarutkan berbagai senyawa kimia."
 
-    "Etanol digunakan sebagai antiseptik.",
+    elif jenis == "Oksidator":
+        interpretasi = "Mampu mengoksidasi zat lain dengan menerima elektron."
 
-    "pH menentukan tingkat keasaman larutan."
+    else:
+        interpretasi = "Karakteristik kimia mengikuti gugus fungsi utamanya."
 
-])
+    st.info(interpretasi)
 
-st.info(f"🧠 Fakta Kimia : {fakta}")
+    st.subheader("💧 Perilaku dalam Larutan")
+
+    if "Asam kuat" in jenis:
+        st.write("• Menurunkan pH secara signifikan")
+    elif "Asam lemah" in jenis:
+        st.write("• Menurunkan pH secara moderat")
+    elif "Basa kuat" in jenis:
+        st.write("• Meningkatkan pH secara signifikan")
+    elif "Basa lemah" in jenis:
+        st.write("• Meningkatkan pH secara moderat")
+    elif "Garam basa" in jenis:
+        st.write("• Larutan cenderung bersifat basa")
+    elif "Garam" in jenis:
+        st.write("• Sifat larutan bergantung pada ion penyusun")
+    else:
+        st.write("• Perilaku larutan bergantung pada sifat senyawa")
+
+    st.subheader("⚡ Reaktivitas")
+
+    if jenis == "Oksidator":
+        st.error("Reaktivitas tinggi terhadap zat pereduksi.")
+
+    elif jenis == "Asam kuat":
+        st.warning("Bereaksi kuat dengan basa dan beberapa logam.")
+
+    elif jenis == "Basa kuat":
+        st.warning("Bereaksi kuat dengan asam.")
+
+    else:
+        st.success("Relatif stabil pada kondisi laboratorium normal.")
+
+    st.subheader("🥽 APD yang Disarankan")
+
+    if "Korosif" in data[3]:
+        st.warning("🥼 Jas Lab | 🧤 Sarung Tangan | 🥽 Kacamata Safety")
+
+    elif "Beracun" in data[3] or "Toksik" in data[3]:
+        st.error("😷 Masker | 🧤 Sarung Tangan | 🥽 Kacamata Safety")
+
+    elif "Mudah terbakar" in data[3]:
+        st.warning("🔥 Hindari sumber api | 🥽 Kacamata Safety")
+
+    else:
+        st.success("APD standar laboratorium.")
+
+    st.subheader("📦 Penyimpanan")
+
+    if "Korosif" in data[3]:
+        st.warning("Simpan dalam wadah tahan korosi dan tertutup rapat.")
+
+    elif "Mudah terbakar" in data[3]:
+        st.warning("Simpan jauh dari sumber panas dan api.")
+
+    elif "Beracun" in data[3] or "Toksik" in data[3]:
+        st.error("Simpan di area aman dan berventilasi baik.")
+
+    else:
+        st.success("Simpan pada suhu ruang dalam wadah tertutup.")
+
+    st.subheader("📋 Kesimpulan")
+
+    st.success(f"""
+    {data[0]} merupakan senyawa golongan {data[1].lower()}
+    dengan massa molekul relatif {data[2]}.
+
+    Berdasarkan data yang tersedia, senyawa ini memiliki tingkat bahaya
+    berupa {data[3].lower()} sehingga memerlukan penanganan yang sesuai
+    dengan prosedur keselamatan laboratorium.
+    """)
 
 # ================= TENTANG =================
 
