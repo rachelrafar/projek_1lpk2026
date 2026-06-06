@@ -1041,40 +1041,6 @@ else:
 Karakteristik kimia mengikuti sifat gugus fungsi utama yang dimiliki senyawa.
 """)
     
-    st.subheader("🥽 APD yang Disarankan")
-
-if "Korosif" in data[3]:
-    st.warning("""
-🧤 Sarung tangan tahan kimia
-
-🥽 Kacamata keselamatan
-
-🥼 Jas laboratorium
-""")
-
-elif "Beracun" in data[3] or "Toksik" in data[3]:
-    st.error("""
-😷 Masker atau respirator
-
-🧤 Sarung tangan
-
-🥽 Kacamata keselamatan
-""")
-
-elif "Mudah terbakar" in data[3]:
-    st.warning("""
-🔥 Jauhkan dari sumber api
-
-🥽 Kacamata keselamatan
-
-🥼 Jas laboratorium
-""")
-
-else:
-    st.success("""
-🥼 APD standar laboratorium sudah memadai.
-""")
-    
 fakta=random.choice([
 
     "Larutan asam kuat terionisasi sempurna di dalam air.",
