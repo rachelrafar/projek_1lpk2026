@@ -1073,9 +1073,9 @@ analisis_spesifik = {
 else:
     st.info("Analisis spesifik senyawa belum tersedia. Analisis didasarkan pada golongan senyawanya.")
 
-st.subheader("📋 Kesimpulan")
+    st.subheader("📋 Kesimpulan")
 
-st.success(f"""
+    st.success(f"""
 {data[0]} merupakan senyawa golongan {data[1].lower()}
 dengan massa molekul relatif {data[2]}.
 
@@ -1083,7 +1083,6 @@ Berdasarkan data yang tersedia, senyawa ini memiliki tingkat bahaya
 berupa {data[3].lower()} sehingga memerlukan penanganan yang sesuai
 dengan prosedur keselamatan laboratorium.
 """)
-
 # ================= TENTANG =================
 
 if menu=="ℹ️ Tentang":
