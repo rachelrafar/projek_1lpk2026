@@ -1,4 +1,6 @@
-# ================= IMPORT =================
+# =========================
+# IMPORT LIBRARY
+# =========================
 
 import streamlit as st
 from streamlit_option_menu import option_menu
@@ -8,355 +10,473 @@ import plotly.express as px
 import random
 import time
 import math
+import json
+import os
+import hashlib
+from datetime import datetime
 
-# ================= PAGE CONFIG =================
+
+# =========================
+# PAGE CONFIG
+# =========================
 
 st.set_page_config(
-
     page_title="ChemAssist Ultra",
-
     page_icon="🧪",
-
     layout="wide",
-
     initial_sidebar_state="expanded"
 )
 
-# ================= SESSION =================
 
-if "login" not in st.session_state:
-    st.session_state.login = False
+# =========================
+# USER DATABASE
+# =========================
 
-if "history" not in st.session_state:
-    st.session_state.history = []
+USER_FILE = "users.json"
 
-# ================= LOGIN =================
+if not os.path.exists(USER_FILE):
+    with open(USER_FILE, "w") as f:
+        json.dump({}, f)
 
-if not st.session_state.login:
 
-    st.markdown("""
-    <style>
+def load_users():
+    with open(USER_FILE, "r") as f:
+        return json.load(f)
 
-    .stApp{
 
-        background:linear-gradient(
+def save_users(users):
+    with open(USER_FILE, "w") as f:
+        json.dump(users, f, indent=4)
+
+
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()
+
+
+# =========================
+# SESSION STATE
+# =========================
+
+default_session = {
+    "login": False,
+    "username": "",
+    "nama": "",
+    "menu": "🏠 Home",
+    "history": []
+}
+
+
+for key, value in default_session.items():
+    if key not in st.session_state:
+        st.session_state[key] = value
+
+
+# =========================
+# GLOBAL STYLE
+# =========================
+
+st.markdown("""
+<style>
+
+/* ========== BACKGROUND ========== */
+
+.stApp{
+    background:
+    linear-gradient(
         135deg,
         #F0F9FF,
         #E0F2FE,
         #BAE6FD,
         #7DD3FC
-        );
+    );
+}
+
+
+.block-container{
+    padding-top: 2rem;
+}
+
+
+/* ========== TITLE ========== */
+
+.main-title{
+    text-align:center;
+    font-size:58px;
+    font-weight:900;
+    color:#2563EB;
+}
+
+
+.subtitle{
+    text-align:center;
+    color:#1E40AF;
+    font-size:18px;
+}
+
+
+/* ========== LOGIN ========== */
+
+.login-title{
+    text-align:center;
+    font-size:56px;
+    font-weight:900;
+    color:#1E3A8A;
+}
+
+
+.login-sub{
+    text-align:center;
+    font-size:18px;
+    color:#475569;
+    margin-bottom:25px;
+}
+
+
+.login-box{
+    background:rgba(255,255,255,0.85);
+    backdrop-filter:blur(20px);
+    border-radius:30px;
+    padding:35px;
+    box-shadow:
+        0 15px 35px
+        rgba(37,99,235,.20);
+}
+
+
+.login-box-title{
+    text-align:center;
+    font-size:28px;
+    font-weight:800;
+    color:#2563EB;
+}
+
+
+/* ========== INPUT ========== */
+
+.stTextInput input{
+    background:white;
+    border-radius:14px;
+}
+
+
+/* ========== BUTTON ========== */
+
+.stButton button{
+    width:100%;
+    height:52px;
+
+    border-radius:15px !important;
+    border:1px solid #BFDBFE !important;
+
+    background:white !important;
+    color:#2563EB !important;
+
+    font-size:16px !important;
+    font-weight:700 !important;
+
+    box-shadow:0 6px 15px rgba(37,99,235,0.12) !important;
+
+    margin-top:5px;
+}
+
+/* ========== SIDEBAR ========== */
+
+section[data-testid="stSidebar"]{
+
+    background:
+    rgba(255,255,255,0.55);
+
+    backdrop-filter:
+    blur(20px);
+}
+
+
+/* ========== CARD ========== */
+
+.card,
+.metric-box,
+.feature-card,
+.info-box,
+.tentang-box{
+
+    background:
+    rgba(255,255,255,.75);
+
+    backdrop-filter:
+    blur(18px);
+
+    border-radius:25px;
+
+    padding:25px;
+
+    box-shadow:
+    0 10px 25px
+    rgba(37,99,235,.15);
+
+}
+
+
+/* ========== FEATURE CARD ========== */
+
+.feature-card{
+    background:linear-gradient(
+        135deg,
+        #3B82F6,
+        #2563EB
+    );
+
+    border-radius:25px;
+    padding:25px;
+    min-height:160px;
+
+    margin-bottom:25px; /* sebelumnya terlalu kecil */
+
+    box-shadow:
+        0 10px 25px rgba(37,99,235,0.25);
+}
+/* ========== METRIC ========== */
+
+.metric-box{
+
+    text-align:center;
+}
+
+
+.metric-box h2{
+
+    font-size:40px;
+}
+
+
+.metric-box h3{
+
+    color:#2563EB;
+
+    font-size:32px;
+}
+
+
+/* ========== SCROLLBAR ========== */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+
+::-webkit-scrollbar-thumb{
+
+    background:#60A5FA;
+    border-radius:20px;
+
+}
+
+/* ================= HOME HEADER ================= */
+
+.home-header{
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+/* Logo berputar */
+.logo-spin{
+    text-align:center;
+    font-size:90px;
+    animation:spin 8s linear infinite;
+    display:inline-block;
+}
+
+@keyframes spin{
+    from{
+        transform:rotate(0deg);
     }
-
-    .login-box{
-
-        background:rgba(255,255,255,0.4);
-
-        padding:40px;
-
-        border-radius:30px;
-
-        backdrop-filter:blur(20px);
-
-        box-shadow:
-        0 10px 30px rgba(37,99,235,0.2);
+    to{
+        transform:rotate(360deg);
     }
+}
 
-    </style>
+
+</style>
+""", unsafe_allow_html=True)
+
+# ================= LOGIN PAGE =================
+
+if not st.session_state.login:
+
+    users = load_users()
+
+    st.markdown("""
+    <div class='login-title'>
+        🧪 ChemAssist Ultra
+    </div>
+
+    <div class='login-sub'>
+        Smart Chemical Analysis Platform
+    </div>
     """, unsafe_allow_html=True)
 
-    c1,c2,c3 = st.columns([1,1.2,1])
+    col1, col2, col3 = st.columns([1, 2, 1])
 
-    with c2:
+    with col2:
 
         st.markdown("""
         <div class="login-box">
         """, unsafe_allow_html=True)
 
+        tab1, tab2 = st.tabs([
+            "🔐 Sign In",
+            "📝 Sign Up"
+        ])
+
+# ================= SIGN IN =================
+
+        with tab1:
+
+            st.markdown("""
+            <div class='login-box-title'>
+                Welcome Back 👋
+            </div>
+            """, unsafe_allow_html=True)
+
+            username = st.text_input(
+                "Username",
+                key="login_username"
+            )
+
+            password = st.text_input(
+                "Password",
+                type="password",
+                key="login_password"
+            )
+
+            if st.button(
+                "🚀 Login",
+                key="btn_login",
+                use_container_width=True
+            ):
+
+                if username in users:
+
+                    if users[username]["password"] == hash_password(password):
+
+                        users[username]["last_login"] = (
+                            datetime.now().strftime(
+                                "%d-%m-%Y %H:%M:%S"
+                            )
+                        )
+
+                        save_users(users)
+
+                        st.session_state.login = True
+                        st.session_state.username = username
+                        st.session_state.nama = users[username]["nama"]
+
+                        st.success("Login berhasil ✅")
+
+                        time.sleep(1)
+
+                        st.rerun()
+
+                    else:
+
+                        st.error("Password salah")
+
+                else:
+
+                    st.error("Username tidak ditemukan")
+
+        # ================= SIGN UP =================
+
+        with tab2:
+
+            st.markdown("""
+            <div class='login-box-title'>
+                Create Account ✨
+            </div>
+            """, unsafe_allow_html=True)
+
+            nama = st.text_input(
+                "Nama Lengkap",
+                key="signup_nama"
+            )
+
+            email = st.text_input(
+                "Email",
+                key="signup_email"
+            )
+
+            username_baru = st.text_input(
+                "Username",
+                key="signup_username"
+            )
+
+            password_baru = st.text_input(
+                "Password",
+                type="password",
+                key="signup_password"
+            )
+
+            konfirmasi = st.text_input(
+                "Konfirmasi Password",
+                type="password",
+                key="signup_konfirmasi"
+            )
+
+            if st.button(
+                "📝 Daftar",
+                key="btn_signup",
+                use_container_width=True
+            ):
+
+                if username_baru in users:
+
+                    st.error("Username sudah digunakan")
+
+                elif password_baru != konfirmasi:
+
+                    st.error(
+                        "Konfirmasi password tidak cocok"
+                    )
+
+                elif (
+                    nama == ""
+                    or email == ""
+                    or username_baru == ""
+                    or password_baru == ""
+                ):
+
+                    st.warning(
+                        "Semua data wajib diisi"
+                    )
+
+                else:
+
+                    users[username_baru] = {
+                        "nama": nama,
+                        "email": email,
+                        "password": hash_password(
+                            password_baru
+                        ),
+                        "last_login": datetime.now().strftime(
+                            "%d-%m-%Y %H:%M:%S"
+                        )
+                    }
+
+                    save_users(users)
+
+                    st.success(
+                        "Akun berhasil dibuat 🎉"
+                    )
+
+                    time.sleep(1)
+
+                    st.rerun()
+
         st.markdown("""
-        <h1 style='text-align:center;color:#2563EB;'>
-        🧪 ChemAssist
-        </h1>
+        </div>
         """, unsafe_allow_html=True)
 
-        user = st.text_input("Username")
-
-        pw = st.text_input(
-            "Password",
-            type="password"
-        )
-
-        accounts = {
-
-            "admin":"123",
-
-            "rachel":"kimia"
-        }
-
-        if st.button("🚀 Login"):
-
-            if user in accounts and pw == accounts[user]:
-
-                st.session_state.login = True
-
-                st.success("Login berhasil")
-
-                time.sleep(1)
-
-                st.rerun()
-
-            else:
-
-                st.error("Username atau password salah")
-
-        st.markdown("</div>", unsafe_allow_html=True)
-
     st.stop()
-
-# ================= CSS =================
-
-st.markdown("""
-<style>
-
-/* ===== BACKGROUND ===== */
-
-.stApp{
-
-    background:linear-gradient(
-    135deg,
-    #F0F9FF,
-    #E0F2FE,
-    #BAE6FD,
-    #7DD3FC
-    );
-
-    background-size:400% 400%;
-
-    animation:bg 15s ease infinite;
-}
-
-@keyframes bg{
-
-0%{
-background-position:0% 50%;
-}
-
-50%{
-background-position:100% 50%;
-}
-
-100%{
-background-position:0% 50%;
-}
-}
-
-/* ===== HIDE ===== */
-
-button[kind="header"]{
-    display:none;
-}
-
-/* ===== SIDEBAR ===== */
-
-section[data-testid="stSidebar"]{
-
-    background:rgba(255,255,255,0.35);
-
-    backdrop-filter:blur(18px);
-
-    border-right:1px solid rgba(255,255,255,0.2);
-}
-
-/* ===== TEXT ===== */
-
-html, body, [class*="css"]{
-
-    color:#0F172A;
-}
-
-/* ===== TITLE ===== */
-
-.main-title{
-
-    font-size:65px;
-
-    font-weight:900;
-
-    text-align:center;
-
-    color:#2563EB;
-
-    margin-top:-20px;
-}
-
-/* ===== SUBTITLE ===== */
-
-.subtitle{
-
-    text-align:center;
-
-    color:#1E40AF;
-
-    font-size:18px;
-
-    margin-bottom:35px;
-}
-
-/* ===== LOGO ===== */
-
-.logo{
-
-    text-align:center;
-
-    font-size:90px;
-
-    animation:spin 8s linear infinite;
-}
-
-@keyframes spin{
-
-100%{
-transform:rotate(360deg);
-}
-}
-
-/* ===== CARD ===== */
-
-.card{
-
-    background:rgba(255,255,255,0.55);
-
-    border:1px solid rgba(255,255,255,0.5);
-
-    backdrop-filter:blur(18px);
-
-    border-radius:28px;
-
-    padding:28px;
-
-    margin-bottom:22px;
-
-    box-shadow:
-    0 8px 24px rgba(37,99,235,0.15);
-}
-
-/* ===== METRIC ===== */
-
-.metric{
-
-    background:linear-gradient(
-    135deg,
-    rgba(255,255,255,0.65),
-    rgba(255,255,255,0.4));
-
-    padding:30px;
-
-    border-radius:25px;
-
-    text-align:center;
-
-    box-shadow:
-    0 8px 22px rgba(37,99,235,0.12);
-}
-
-.metric-number{
-
-    font-size:48px;
-
-    font-weight:900;
-
-    color:#2563EB;
-}
-
-.metric-label{
-
-    color:#334155;
-
-    font-size:17px;
-}
-
-/* ===== BUTTON ===== */
-
-.stButton > button{
-
-    width:100%;
-
-    background:linear-gradient(
-    90deg,
-    #38BDF8,
-    #2563EB
-    );
-
-    color:white;
-
-    border:none;
-
-    border-radius:16px;
-
-    padding:13px;
-
-    font-size:17px;
-
-    font-weight:bold;
-}
-
-/* ===== PARTICLES ===== */
-
-.particle{
-
-    position:fixed;
-
-    width:12px;
-
-    height:12px;
-
-    border-radius:50%;
-
-    background:rgba(255,255,255,0.5);
-
-    animation:float 14s infinite linear;
-}
-
-.particle:nth-child(1){left:10%;}
-.particle:nth-child(2){left:30%;}
-.particle:nth-child(3){left:50%;}
-.particle:nth-child(4){left:70%;}
-.particle:nth-child(5){left:90%;}
-
-@keyframes float{
-
-0%{
-transform:translateY(100vh);
-}
-
-100%{
-transform:translateY(-120vh);
-}
-}
-
-</style>
-
-<div class="particle"></div>
-<div class="particle"></div>
-<div class="particle"></div>
-<div class="particle"></div>
-<div class="particle"></div>
-
-""", unsafe_allow_html=True)
-
-# ================= HEADER =================
-
-st.markdown("""
-<div class="logo">🧪</div>
-
-<div class="main-title">
-ChemAssist Ultra
-</div>
-
-<div class="subtitle">
-Next Generation Chemistry Dashboard
-</div>
-""", unsafe_allow_html=True)
 
 # ================= SESSION =================
 
@@ -472,6 +592,31 @@ if "menu" not in st.session_state:
 
 with st.sidebar:
 
+    if st.session_state.login:
+        st.success(
+            f"👤 {st.session_state.nama}"
+        )
+        
+    users = load_users()
+
+    if st.session_state.username in users:
+
+        st.caption(
+            f"🕒 Login terakhir: "
+            f"{users[st.session_state.username]['last_login']}"
+        )
+
+    dark_mode = st.toggle("🌙 Dark Mode")
+
+    if dark_mode:
+        sidebar_bg = "#0F172A"
+        nav_bg = "#1E293B"
+        nav_text = "white"
+    else:
+        sidebar_bg = "#E0F2FE"
+        nav_bg = "#FFFFFF"
+        nav_text = "#0F172A"
+
     selected = option_menu(
         menu_title="✨ ChemAssist Menu",
 
@@ -508,12 +653,12 @@ with st.sidebar:
 
             "container": {
                 "padding": "15px",
-                "background-color": "#E0F2FE",
+                "background-color": sidebar_bg,
                 "border-radius": "20px",
             },
 
             "icon": {
-                "color": "#2563EB",
+                "color": "#38BDF8",
                 "font-size": "20px"
             },
 
@@ -523,10 +668,10 @@ with st.sidebar:
                 "margin": "8px",
                 "padding": "12px",
                 "border-radius": "14px",
-                "background-color": "#FFFFFF",
-                "color": "#0F172A",
+                "background-color": nav_bg,
+                "color": nav_text,
                 "font-weight": "600",
-                "--hover-color": "#BAE6FD",
+                "--hover-color": "#334155",
             },
 
             "nav-link-selected": {
@@ -536,167 +681,266 @@ with st.sidebar:
             },
         }
     )
+
     st.markdown("---")
 
     if st.button("🚪 Logout"):
-
         st.session_state.login = False
-
+        st.session_state.username = ""
+        st.session_state.nama = ""
+        
         st.rerun()
 
 # ================= DARK MODE =================
 
-    dark_mode = st.toggle("🌙 Dark Mode")
+if dark_mode:
 
-    if dark_mode:
+    st.markdown("""
+    <style>
 
-        st.markdown("""
-        <style>
+    .stApp{
+        background:linear-gradient(
+        135deg,
+        #020617,
+        #0F172A,
+        #111827
+        ) !important;
+    }
 
-        .stApp{
+    /* SIDEBAR */
+    section[data-testid="stSidebar"]{
+        background:#0F172A !important;
+    }
 
-            background:linear-gradient(
-            135deg,
-            #020617,
-            #0F172A,
-            #111827
-            ) !important;
-        }
+    section[data-testid="stSidebar"] > div{
+        background:#0F172A !important;
+    }
 
-        html, body, [class*="css"]{
+    section[data-testid="stSidebar"] *{
+        color:white !important;
+    }
 
-            color:white !important;
-        }
+    /* Card */
+    .card{
+        background:rgba(15,23,42,0.6) !important;
+        border:1px solid rgba(255,255,255,0.08) !important;
+        color:white !important;
+    }
 
-        section[data-testid="stSidebar"]{
+    /* Metric Home */
+    .metric-box{
+        color:white !important;
+        background:rgba(15,23,42,0.6) !important;
+        border:1px solid rgba(255,255,255,0.08) !important;
+    }
 
-            background:rgba(15,23,42,0.7) !important;
-        }
+    .metric-box h2{
+        color:#38BDF8 !important;
+    }
 
-        .card{
+    .metric-box h3{
+        color:white !important;
+    }
 
-            background:rgba(15,23,42,0.6) !important;
+    .metric-box p{
+        color:#E2E8F0 !important;
+    }
 
-            border:1px solid rgba(255,255,255,0.08) !important;
+    /* Form */
+    .stSelectbox label,
+    .stNumberInput label,
+    .stTextInput label,
+    .stRadio label,
+    .stSlider label{
+        color:white !important;
+        font-weight:600;
+    }
 
-            color:white !important;
-        }
+    /* Isi selectbox & input tetap hitam */
+    .stSelectbox div[data-baseweb="select"] *,
+    .stNumberInput input{
+        color:black !important;
+    }
 
-        .metric{
+    /* Judul */
+    h1,h2,h3,h4,h5,h6,p,span{
+        color:white !important;
+    }
 
-            background:rgba(15,23,42,0.6) !important;
-        }
+    .metric-label{
+        color:#E2E8F0 !important;
+    }
 
-        .metric-number{
+    /* Halaman Tentang */
+    .tentang-box,
+    .tentang-box h2,
+    .tentang-box h3,
+    .tentang-box li,
+    .tentang-box p{
+        color:white !important;
+    }
 
-            color:#38BDF8 !important;
-        }
-
-        .metric-label{
-
-            color:#E2E8F0 !important;
-        }
-
-        </style>
-        """, unsafe_allow_html=True)
+    </style>
+    """, unsafe_allow_html=True)
 
 menu = selected
+
 # ================= HOME =================
 
-if menu=="🏠 Home":
+if menu == "🏠 Home":
 
-    c1,c2,c3=st.columns(3)
+    # Header Home
+    st.markdown("""
+    <div class="home-header">
+
+        <div class="logo-spin">
+            🧪
+        </div>
+
+        <div class="main-title">
+            ChemAssist Ultra
+        </div>
+
+        <div class="subtitle">
+            Next Generation Chemistry Dashboard
+        </div>
+
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+
+    # Statistik
+    c1, c2, c3 = st.columns(3)
 
     with c1:
         st.markdown(f"""
-        <div class='metric-box'>
-        <h2>📚</h2>
-        <h3>{len(db)}</h3>
-        <p>Database Senyawa</p>
+        <div class="metric-box">
+            <h2>📚</h2>
+            <h3>{len(db)}</h3>
+            <p>Database Senyawa</p>
         </div>
         """, unsafe_allow_html=True)
 
     with c2:
         st.markdown(f"""
-        <div class='metric-box'>
-        <h2>⚗️</h2>
-        <h3>{len(data_ph)}</h3>
-        <p>Data pH</p>
+        <div class="metric-box">
+            <h2>⚗️</h2>
+            <h3>{len(data_ph)}</h3>
+            <p>Data pH</p>
         </div>
         """, unsafe_allow_html=True)
 
     with c3:
         st.markdown("""
-        <div class='metric-box'>
-        <h2>🚀</h2>
-        <h3>5.0</h3>
-        <p>Modern Edition</p>
+        <div class="metric-box">
+            <h2>🚀</h2>
+            <h3>5.0</h3>
+            <p>Modern Edition</p>
         </div>
         """, unsafe_allow_html=True)
 
+
     st.markdown("<br>", unsafe_allow_html=True)
 
-    col1,col2=st.columns(2)
+
+    # Feature Cards
+    col1, col2 = st.columns(2)
+
 
     with col1:
 
         st.markdown("""
-        <div class='card'>
-            <div class='feature-title'>💧 Smart Solution Maker</div>
-            <div class='feature-desc'>
-            Perhitungan larutan otomatis dengan tampilan modern.
+        <div class="feature-card">
+            <div class="feature-title">
+                💧 Smart Solution Maker
+            </div>
+
+            <div class="feature-desc">
+                Perhitungan larutan otomatis dengan tampilan modern dan akurat.
             </div>
         </div>
         """, unsafe_allow_html=True)
 
-        if st.button("🚀 Buka Menu Larutan"):
+
+        if st.button("🚀 Buka Menu Larutan", key="btn_larutan"):
             go_to("💧 Larutan")
 
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+
         st.markdown("""
-        <div class='card'>
-            <div class='feature-title'>📚 Chemical Database</div>
-            <div class='feature-desc'>
-            Informasi senyawa lengkap dan interaktif.
+        <div class="feature-card">
+            <div class="feature-title">
+                📚 Chemical Database
+            </div>
+
+            <div class="feature-desc">
+                Informasi senyawa lengkap, rumus, sifat fisika, dan bahaya bahan kimia.
             </div>
         </div>
         """, unsafe_allow_html=True)
 
-        if st.button("📖 Informasi Kimia"):
+
+        if st.button("📖 Informasi Kimia", key="btn_kimia"):
             go_to("📚 Informasi Bahan Kimia")
+
 
     with col2:
 
         st.markdown("""
-        <div class='card'>
-            <div class='feature-title'>⚡ Smart pH Calculator</div>
-            <div class='feature-desc'>
-            Analisis pH cepat dengan sistem otomatis.
+        <div class="feature-card">
+            <div class="feature-title">
+                ⚡ Smart pH Calculator
+            </div>
+
+            <div class="feature-desc">
+                Analisis pH larutan asam, basa, garam, dan buffer secara otomatis.
             </div>
         </div>
         """, unsafe_allow_html=True)
 
-        if st.button("⚗️ Kalkulator pH"):
+
+        if st.button("⚗️ Kalkulator pH", key="btn_ph"):
             go_to("⚗️ pH")
 
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+
         st.markdown("""
-        <div class='card'>
-            <div class='feature-title'>🧠 Chemical Analysis</div>
-            <div class='feature-desc'>
-            Analisis karakteristik senyawa modern.
+        <div class="feature-card">
+            <div class="feature-title">
+                🧠 Chemical Analysis
+            </div>
+
+            <div class="feature-desc">
+                Analisis karakteristik senyawa dan prediksi sifat kimia modern.
             </div>
         </div>
         """, unsafe_allow_html=True)
 
-        if st.button("🧪 Analisis Kimia"):
-            go_to("🧪 Analisis Kimia")
-        st.markdown("### 🚀 System Performance")
-        
-        progress=st.progress(0)
-        for i in range(100):
-            time.sleep(0.01)
-            progress.progress(i+1)
-        st.success("System Ready ✅")
 
+        if st.button("🧪 Analisis Kimia", key="btn_analisis"):
+            go_to("🧪 Analisis Kimia")
+
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+
+    # System Performance
+    st.markdown("### 🚀 System Performance")
+
+    progress = st.progress(0)
+
+    for i in range(100):
+        time.sleep(0.01)
+        progress.progress(i + 1)
+
+    st.success("System Ready ✅")
+    
 # ================= LARUTAN =================
 
 elif menu=="💧 Larutan":
@@ -1176,32 +1420,54 @@ dengan prosedur keselamatan laboratorium.
     
 # ================= TENTANG =================
 
-if menu=="ℹ️ Tentang":
+if menu == "ℹ️ Tentang":
 
     st.title("ℹ️ Tentang Aplikasi")
 
     st.markdown("""
-    <div class='info-box'>
+    <div class="tentang-box">
 
-    <h3>🧪 ChemAssist Pro</h3>
+    <h2>🧪 ChemAssist Pro</h2>
 
-    <p>Aplikasi laboratorium kimia interaktif berbasis Python dan Streamlit.</p>
+    <p>
+    Aplikasi laboratorium kimia interaktif berbasis Python dan Streamlit.
+    </p>
 
-    <h4>🚀 Fitur Utama</h4>
-
-    <ul>
-    <li>Smart Solution Maker</li>
-    <li>Smart pH Calculator</li>
-    <li>Informasi Bahan Kimia</li>
-    <li>Smart Chemical Analysis</li>
-    </ul>
-
-    <h4>👨‍💻 Teknologi</h4>
+    <h3>🚀 Fitur Utama</h3>
 
     <ul>
-    <li>Python</li>
-    <li>Streamlit</li>
+        <li>Smart Solution Maker</li>
+        <li>Smart pH Calculator</li>
+        <li>Informasi Bahan Kimia</li>
+        <li>Smart Chemical Analysis</li>
     </ul>
+
+    <h3>👨‍💻 Teknologi</h3>
+
+    <ul>
+        <li>Python</li>
+        <li>Streamlit</li>
+    </ul>
+
+    <h3>🎓 Dikembangkan Untuk</h3>
+
+    <p>
+    Praktikum dan pembelajaran kimia analitik,
+    kimia dasar, serta perhitungan laboratorium.
+    </p>
+
+    <h3>👥 Creator Team</h3>
+
+    <ul>
+        <li><b>Adlina Dhiva Tsaniyah</b> (2560555)</li>
+        <li><b>Davina Faiza Laksono</b> (2560605)</li>
+        <li><b>Rachel Rafa Rashika</b> (2560738)</li>
+        <li><b>Tantri Nirwana Bandiani</b> (2560795)</li>
+    </ul>
+
+    <h3>📌 Versi</h3>
+
+    <p><b>ChemAssist Ultra v5.0</b></p>
 
     </div>
     """, unsafe_allow_html=True)
